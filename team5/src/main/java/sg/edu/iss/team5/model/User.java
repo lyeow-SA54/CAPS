@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,25 +20,28 @@ import org.apache.commons.text.RandomStringGenerator;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sg.edu.iss.team5.helper.role;
 
 @Entity
 @Table(name="user")
 @Data
 @NoArgsConstructor
 public class User{
-	
+
 	@Id
 	@Column(name = "userid")
 	private String userId;
 	@NotEmpty
-	@Column(name = "type")
-	private String type;
+	@Column(name = "role")
+	@Enumerated(EnumType.STRING)
+	private role role;
 	@Column(name = "password")
 	private String password;
 
-	public User(String id, String type) {
+	public User(String id, role role) {
 		this.userId = id;
-		this.type = type;
+		this.role = role;
+
 		this.password = generateCommonTextPassword();
 	}
 	
