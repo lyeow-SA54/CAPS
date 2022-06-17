@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+
+<body>
+	<h3>Edit Course page</h3>
+	<form action="#" th:action="@{/admin/lecturers/edit/'+lecturer.lecturerID}" th:object="${lecturer}" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<td><span th:text="#{fieldLabel.lecturerID}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{lecturerID}" readonly="readonly" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('lecturerID')}" th:errors="*{lecturerID}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.email}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{email}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.name}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{name}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+				</tr>
+				<tr>
+					<td>
+						<fieldset><input type="submit" value="Update" class="blcass" /></fieldset>
+					</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<a th:href="@{/admin/lecturers/list}">Back</a>
+</body>
+
+</html>

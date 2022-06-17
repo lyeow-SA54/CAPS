@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<h3>New Course page</h3>
+
+	<form action="#" th:action="@{/admin/courses/create}" th:object="${course}" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<td><span th:text="#{fieldLabel.courseID}"></span></td>
+					<td>
+						<fieldset>
+							<input type="text" th:field="*{courseID}" />
+						</fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('courseID')}" th:errors="*{courseID}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.code}"></span></td>
+					<td>
+						<fieldset>
+							<input type="text" th:field="*{code}" />
+						</fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.name}"></span></td>
+					<td>
+						<fieldset>
+							<input type="text" th:field="*{name}" />
+						</fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+				</tr>
+				<tr>
+					<td>
+						<fieldset>
+							<input type="submit" value="Create" class="blcass" />
+						</fieldset>
+					</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<a th:href="@{/admin/courses/list}">Back</a>
+</body>
+
+</html>

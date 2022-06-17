@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import sg.edu.iss.team5.model.Student;
 
-public interface StudentRepo extends JpaRepository<Student, Integer>{
+public interface StudentRepo extends JpaRepository<Student, String>{
 
 }

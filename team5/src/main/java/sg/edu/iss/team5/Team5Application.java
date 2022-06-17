@@ -11,9 +11,13 @@ import org.springframework.context.support.BeanDefinitionDsl.Role;
 import sg.edu.iss.team5.helper.role;
 import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Admin;
+import sg.edu.iss.team5.model.Course;
+import sg.edu.iss.team5.model.Lecturer;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.User;
 import sg.edu.iss.team5.repositories.AdminRepo;
+import sg.edu.iss.team5.repositories.CourseRepo;
+import sg.edu.iss.team5.repositories.LecturerRepo;
 import sg.edu.iss.team5.repositories.StudentRepo;
 import sg.edu.iss.team5.repositories.UserRepo;
 
@@ -30,6 +34,8 @@ import sg.edu.iss.team5.repositories.UserRepo;
 	@Autowired AdminRepo ar;
 	@Autowired UserRepo ur;
 	@Autowired StudentRepo sr;
+	@Autowired CourseRepo cr;
+	@Autowired LecturerRepo lcr;
 	public static void main(String[] args) {
 		SpringApplication.run(Team5Application.class, args);
 
@@ -49,8 +55,13 @@ import sg.edu.iss.team5.repositories.UserRepo;
     {
 		Admin a1 = new Admin("LEON");
 		ar.save(a1);
-//		User s1a = new User("S123456", role.valueOf("STUDENT"));
+//		User s1a = new User("S123456", role.STUDENT);
 //		ur.save(s1a);
+		Course c1 = new Course();
+		c1.setCourseID("C1234");
+		c1.setCode("ABC");
+		c1.setName("Course1");
+		cr.save(c1);
 		Student s1 = new Student("S123456", "Student1", "abc@email.com");
 		sr.save(s1);
     }

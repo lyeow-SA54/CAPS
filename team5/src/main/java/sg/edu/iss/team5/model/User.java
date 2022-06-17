@@ -4,13 +4,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import static org.apache.commons.text.CharacterPredicates.DIGITS;
@@ -29,21 +34,24 @@ import sg.edu.iss.team5.helper.role;
 public class User{
 
 	@Id
-	@Column(name = "userid")
 	private String userId;
-	@NotEmpty
 	@Column(name = "role")
 	@Enumerated(EnumType.STRING)
 	private role role;
 	@Column(name = "password")
 	private String password;
+	@OneToOne (mappedBy = "user")
+	private Student studentuser;
 
 	public User(String id, role role) {
 		this.userId = id;
 		this.role = role;
-
 		this.password = generateCommonTextPassword();
 	}
+	
+//	public User(Student studentuser) {
+//		this.studentuser = studentuser;
+//	}
 	
 	public String generateCommonTextPassword() {
 	    String pwString = generateRandomSpecialCharacters(5).concat(generateRandomAlphaNumeric(10));

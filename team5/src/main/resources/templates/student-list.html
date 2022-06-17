@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<h3>Student List page</h3>
+	<a th:href="@{/admin/students/create}">Add
+		Student</a>
+	<div th:if="${not #lists.isEmpty(slist)}">
+		<table style="border: 1;">
+
+			<tr class="listHeading">
+				<th><span th:text="#{fieldLabel.studentID}"></span></th>
+				<th><span th:text="#{fieldLabel.name}"></span></th>
+				<th><span th:text="#{fieldLabel.email}"></span></th>
+				<th><span th:text="#{caption.edit}"></span></th>
+				<th><span th:text="#{caption.delete}"></span></th>
+			</tr>
+			<tr th:each="student : ${slist}" class="listRecord">
+				<td align="left" th:text="${student.studentID}">Course Id</td>
+				<td align="left" th:text="${student.name}">Course Id</td>
+				<td align="left" th:text="${student.email}">Name</td>
+
+				<td><a th:href="@{/admin/students/edit/}+${student.studentID}" class="btn btn-default"><span
+							th:text="#{caption.edit}"></span></a></td>
+				<td><a th:href="@{/admin/students/delete/}+${student.studentID}" class="btn btn-default"><span
+							th:text="#{caption.delete}"></span></a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>
