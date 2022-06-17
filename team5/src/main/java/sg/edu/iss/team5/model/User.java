@@ -34,8 +34,12 @@ import sg.edu.iss.team5.helper.role;
 public class User{
 
 	@Id
+
+	@Column(name = "user_id")
 	private String userId;
-	@Column(name = "role")
+
+	@NotEmpty
+	@Column(name = "role", columnDefinition = "ENUM('ADMIN', 'STUDENT', 'LECTURER')")
 	@Enumerated(EnumType.STRING)
 	private role role;
 	@Column(name = "password")
