@@ -42,6 +42,8 @@ public class User{
 	private String password;
 	@OneToOne (mappedBy = "user")
 	private Student studentuser;
+	@OneToOne (mappedBy = "user")
+	private Lecturer lectureruser;
 
 	public User(String id, role role) {
 		this.userId = id;
