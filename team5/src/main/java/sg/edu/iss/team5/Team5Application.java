@@ -53,17 +53,7 @@ import sg.edu.iss.team5.repositories.UserRepo;
 	@Override
     public void run(String... args) throws Exception
     {
-		Admin a1 = new Admin("LEON");
-		ar.save(a1);
-//		User s1a = new User("S123456", role.STUDENT);
-//		ur.save(s1a);
-		Course c1 = new Course();
-		c1.setCourseID("C1234");
-		c1.setCode("ABC");
-		c1.setName("Course1");
-		cr.save(c1);
-		Student s1 = new Student("S123456", "Student1", "abc@email.com");
-		sr.save(s1);
+		
     }
 
 }

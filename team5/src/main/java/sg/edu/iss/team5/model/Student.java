@@ -3,7 +3,11 @@ package sg.edu.iss.team5.model;
 import java.time.LocalDate;
 import java.util.List;
 
+
+import javax.persistence.Basic;
+
 import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,16 +37,26 @@ import sg.edu.iss.team5.helper.status;
 public class Student {
 	
 	@Id
+	@Column(name = "student_id")
 	private String studentID;
+	@Basic
+	@Column(name = "student_name")
 	private String name;
+	@Basic
+	@Column(name = "student_email")
 	private String email;
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@Basic
+	@Column(name = "start_date")
 	private LocalDate startDate;
 	@Column(name = "status_type", columnDefinition = "ENUM('INPROGRESS','SUBMITTED', 'APPROVED', 'WITHDRAWN', 'UPDATED', 'REJECTED','GRUADATEDs')")
 	@Enumerated(EnumType.STRING)
 	private status eventType;
+	@Basic
+	@Column(name = "GPA")
 	private double gpa;
-	@OneToMany(mappedBy="studentID")
+	
+	@OneToMany(mappedBy="studentID")	
 	private List<Student_Course> studyList;
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class Admin {
 	
 	@Id
-	@Column(name = "userid")
+	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id-generator")
 //    @GenericGenerator(name = "id-generator", 
