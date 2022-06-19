@@ -17,12 +17,17 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import sg.edu.iss.team5.helper.status;
 
 @Entity
 @Table(name="Student_Course")
-@Data
+@ToString
+@Setter
+@Getter
 @NoArgsConstructor
 
 public class Student_Course {

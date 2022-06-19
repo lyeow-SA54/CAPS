@@ -64,13 +64,15 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		Course c1 = new Course();
 		c1.setCourseID("C12345");
 		cr.save(c1);
+		Course c2 = new Course();
+		c2.setCourseID("C22345");
+		cr.save(c2);
 		Student_Course sc1 = new Student_Course(s1, c1, 0, status.GRADUATED);
 		sc1.setSc_ID("SC12345");
 		Set<Student_Course> sclist = Set.of(sc1);
 		s1.setStudyList(sclist);
 		c1.setClassList(sclist);
 		sr.save(s1);
-//		cr.save(c1);
 		er.save(sc1);
     }
 

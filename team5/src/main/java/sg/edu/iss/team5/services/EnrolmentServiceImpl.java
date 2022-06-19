@@ -2,6 +2,7 @@ package sg.edu.iss.team5.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -42,20 +43,18 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	 */
 	@Override
 	@Transactional
-	public Student_Course createEnrolment(Student_Course enroll) {
-//		Student s = sService.findStudent(enroll.getStudentID().getStudentID());
-//		Course c = cService.findCourse(enroll.getCourseID().getCourseID());
-//		enroll.setStudentID(s);
-//		enroll.setCourseID(c);
-//		Set<Student_Course> slist = s.getStudyList();
-//		slist.add(enroll);
-//		s.setStudyList(slist);
-//		sService.changeStudent(s);
-//		List<Student_Course> clist = c.getClassList();
-//		clist.add(enroll);
-//		c.setClassList(clist);
-//		cService.changeCourse(c);
-		return enrollRepository.saveAndFlush(enroll);
+	public Student_Course createEnrolment(Student_Course stu_c) {
+		String sc_id = stu_c.getStudentID().getStudentID() + "-" + stu_c.getCourseID().getCourseID();
+		stu_c.setSc_ID(sc_id);
+		Student s = sService.findStudent(stu_c.getStudentID().getStudentID());
+		Course c = cService.findCourse(stu_c.getCourseID().getCourseID());
+		Set<Student_Course> slist = s.getStudyList();
+		slist.add(stu_c);
+		s.setStudyList(slist);
+		sService.changeStudent(s);
+		Set<Student_Course> clist = c.getClassList();
+		clist.add(stu_c);
+		return enrollRepository.saveAndFlush(stu_c);
 	}
 
 	/* (non-Javadoc)
@@ -63,8 +62,11 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	 */
 	@Override
 	@Transactional
-	public Student_Course changeEnrolment(Student_Course enroll) {
-		return enrollRepository.saveAndFlush(enroll);
+	public Student_Course changeEnrolment(Student_Course stu_c) {
+		Student_Course sc = findEnrolment(stu_c.getSc_ID());
+		sc.setEventType(stu_c.getEventType());
+		sc.setScore(stu_c.getScore());
+		return enrollRepository.saveAndFlush(sc);
 	}
 
 	/* (non-Javadoc)
