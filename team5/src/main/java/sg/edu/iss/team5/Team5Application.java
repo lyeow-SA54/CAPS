@@ -1,5 +1,8 @@
 package sg.edu.iss.team5;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,9 +17,11 @@ import sg.edu.iss.team5.model.Admin;
 import sg.edu.iss.team5.model.Course;
 import sg.edu.iss.team5.model.Lecturer;
 import sg.edu.iss.team5.model.Student;
+import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.model.User;
 import sg.edu.iss.team5.repositories.AdminRepo;
 import sg.edu.iss.team5.repositories.CourseRepo;
+import sg.edu.iss.team5.repositories.EnrolmentRepo;
 import sg.edu.iss.team5.repositories.LecturerRepo;
 import sg.edu.iss.team5.repositories.StudentRepo;
 import sg.edu.iss.team5.repositories.UserRepo;
@@ -36,6 +41,7 @@ import sg.edu.iss.team5.repositories.UserRepo;
 	@Autowired StudentRepo sr;
 	@Autowired CourseRepo cr;
 	@Autowired LecturerRepo lcr;
+	@Autowired EnrolmentRepo er;
 	public static void main(String[] args) {
 		SpringApplication.run(Team5Application.class, args);
 
@@ -53,7 +59,19 @@ import sg.edu.iss.team5.repositories.UserRepo;
 	@Override
     public void run(String... args) throws Exception
     {
-		
+		Student s1 = new Student("S12345", "Student1", "abc@email.com");
+//		sr.save(s1);
+		Course c1 = new Course();
+		c1.setCourseID("C12345");
+		cr.save(c1);
+		Student_Course sc1 = new Student_Course(s1, c1, 0, status.GRADUATED);
+		sc1.setSc_ID("SC12345");
+		Set<Student_Course> sclist = Set.of(sc1);
+		s1.setStudyList(sclist);
+		c1.setClassList(sclist);
+		sr.save(s1);
+//		cr.save(c1);
+		er.save(sc1);
     }
 
 }

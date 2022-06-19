@@ -3,6 +3,7 @@ package sg.edu.iss.team5.controllers;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -19,8 +20,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.team5.exception.CourseNotFound;
+import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Course;
+import sg.edu.iss.team5.model.Student;
+import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.services.CourseService;
+import sg.edu.iss.team5.services.EnrolmentService;
+import sg.edu.iss.team5.services.StudentService;
 
 
 @Controller
@@ -30,6 +36,10 @@ public class AdminCourseController {
 
 	@Autowired
 	private CourseService cService;
+	@Autowired
+	private EnrolmentService eService;
+	@Autowired
+	private StudentService sService;
 //	
 //	@Autowired
 //	private UserValidator uValidator;
@@ -110,4 +120,51 @@ public class AdminCourseController {
 		System.out.println(message);
 		return mav;
 	}
+	
+	@RequestMapping(value = "enroll/list")
+	public ModelAndView listEnrolmentPage() {
+		ModelAndView mav = new ModelAndView("enroll-list");
+		ArrayList<Student_Course> eList = eService.findAllEnrolment();
+		mav.addObject("elist", eList);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/enroll/create", method = RequestMethod.GET)
+	public ModelAndView newCourseEnrollPage() {
+		ModelAndView mav = new ModelAndView("enroll-new", "student_course", new Student_Course());
+		ArrayList<Student_Course> eList = eService.findAllEnrolment();
+		mav.addObject("elist", eList);
+		return mav;
+	}
+
+	@RequestMapping(value = "/enroll/create", method = RequestMethod.POST)
+	public ModelAndView createNewCourseEnroll(@ModelAttribute @Valid Student_Course stu_c, BindingResult result) {
+
+		if (result.hasErrors())
+			return new ModelAndView("enroll-new");
+
+		ModelAndView mav = new ModelAndView();
+//		String message = "New enrolment " + stu_c.getSc_ID() + " was successfully created.";
+		String sc_id = stu_c.getStudentID().getStudentID() + stu_c.getCourseID().getCourseID();
+		String std_id = stu_c.getStudentID().getStudentID();
+		String course_id = stu_c.getCourseID().getCourseID();
+		Student s = sService.findStudent(std_id);
+		Course c = cService.findCourse(course_id);
+		Set<Student_Course> slist = s.getStudyList();
+		slist.add(stu_c);
+		s.setStudyList(slist);
+//		sService.changeStudent(s);
+		Set<Student_Course> clist = c.getClassList();
+		clist.add(stu_c);
+		c.setClassList(clist);
+//		cService.createCourse(c);
+//		System.out.println(message);
+//		System.out.println(std_id);
+//		System.out.println(course_id);
+		eService.createEnrolment(stu_c);
+		mav.setViewName("forward:/admin/courses/enroll/list");
+		return mav;
+	}
+	
+	
 }

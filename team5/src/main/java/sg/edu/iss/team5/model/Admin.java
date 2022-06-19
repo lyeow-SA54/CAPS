@@ -22,7 +22,7 @@ public class Admin {
 	
 	@Id
 	@Column(name = "user_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id-generator")
 //    @GenericGenerator(name = "id-generator", 
 //	parameters = {
@@ -30,7 +30,7 @@ public class Admin {
 //            @Parameter(name = IdGenerator.VALUE_PREFIX_PARAMETER, value = "B_"),
 //            @Parameter(name = IdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") }, 
 //      strategy = "sg.edu.iss.team5.model.IdGenerator")
-	private int userId;
+	private Integer userId;
 	private String name;
 	
 	public Admin(String name) {

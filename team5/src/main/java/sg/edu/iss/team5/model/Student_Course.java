@@ -1,6 +1,7 @@
 package sg.edu.iss.team5.model;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -27,21 +28,27 @@ import sg.edu.iss.team5.helper.status;
 public class Student_Course {
 	
 	@Id
-	@Column(name = "stu_course_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-    private int sc_Id;
+	@Column(name = "sc_ID")
+    private String sc_ID;
 	
-	@ManyToOne 
-	@JoinColumn(name = "student_id")
+	@ManyToOne
+	@JoinColumn(name = "sc_studentID")
 	private Student studentID;
-	@ManyToOne 
-	@JoinColumn(name = "course_id")
+	@ManyToOne
+	@JoinColumn(name = "sc_courseID")
 	private Course courseID;
 	@Basic
 	@Column(name = "score")
 	private int score;
-	@Column(name = "status_type", columnDefinition = "ENUM('INPROGRESS','SUBMITTED', 'APPROVED', 'WITHDRAWN', 'UPDATED', 'REJECTED','GRUADATEDs')")
+	@Column(name = "status_type", columnDefinition = "ENUM('INPROGRESS','SUBMITTED', 'APPROVED', 'WITHDRAWN', 'UPDATED', 'REJECTED','GRADUATED')")
 	@Enumerated(EnumType.STRING)
 	private status eventType;
 
+	public Student_Course(Student student, Course course, int score, status event)
+	{
+		studentID = student;
+		courseID = course;
+		this.score=score;
+		eventType = event;
+	}
 }

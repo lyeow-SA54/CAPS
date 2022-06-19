@@ -37,8 +37,6 @@ public class User{
 
 	@Column(name = "user_id")
 	private String userId;
-
-	@NotEmpty
 	@Column(name = "role", columnDefinition = "ENUM('ADMIN', 'STUDENT', 'LECTURER')")
 	@Enumerated(EnumType.STRING)
 	private role role;
@@ -55,9 +53,9 @@ public class User{
 		this.password = generateCommonTextPassword();
 	}
 	
-//	public User(Student studentuser) {
-//		this.studentuser = studentuser;
-//	}
+	public User(Student studentuser) {
+		this.studentuser = studentuser;
+	}
 	
 	public String generateCommonTextPassword() {
 	    String pwString = generateRandomSpecialCharacters(5).concat(generateRandomAlphaNumeric(10));

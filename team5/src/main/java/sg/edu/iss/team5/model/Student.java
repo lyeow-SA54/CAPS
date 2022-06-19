@@ -2,7 +2,7 @@ package sg.edu.iss.team5.model;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import java.util.Set;
 
 import javax.persistence.Basic;
 
@@ -25,13 +25,16 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import sg.edu.iss.team5.helper.role;
 import sg.edu.iss.team5.helper.status;
 
 @Entity
 @Table(name="student")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 
 public class Student {
@@ -56,8 +59,8 @@ public class Student {
 	@Column(name = "GPA")
 	private double gpa;
 	
-	@OneToMany(mappedBy="studentID")	
-	private List<Student_Course> studyList;
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="studentID",cascade = CascadeType.ALL)	
+	private Set<Student_Course> studyList;
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	

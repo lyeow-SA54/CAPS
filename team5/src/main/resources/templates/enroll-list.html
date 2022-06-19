@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<h3>Enrolment List page</h3>
+	<a th:href="@{/admin/courses/enroll/create}">Add
+		Course</a>
+	<div th:if="${not #lists.isEmpty(elist)}">
+		<table style="border: 1;">
+
+			<tr class="listHeading">
+				
+				<th><span th:text="#{fieldLabel.studentID}"></span></th>
+				<th><span th:text="#{fieldLabel.courseID}"></span></th>
+				<th><span th:text="#{fieldLabel.score}"></span></th>
+				<th><span th:text="#{caption.edit}"></span></th>
+			</tr>
+			<tr th:each="student_course : ${elist}" class="listRecord">
+				
+				<td align="left" th:text="${student_course.studentID.studentID}">Name</td>
+				<td align="left" th:text="${student_course.courseID.courseID}">Course Id</td>
+				<td align="left" th:text="${student_course.score}">Name</td>
+				<td><a th:href="@{/admin/courses/edit/}+${student_course.sc_ID}" class="btn btn-default"><span
+							th:text="#{caption.edit}"></span></a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

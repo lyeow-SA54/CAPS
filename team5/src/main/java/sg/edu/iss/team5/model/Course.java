@@ -23,12 +23,15 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Course {
 	public Course(String code, String name, int courseDays) {}
@@ -39,8 +42,7 @@ public class Course {
 
 	@Id
 	@Column(name = "course_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int courseID;
+	private String courseID;
 	@Basic
 	@Column(name = "code")
 	private String code;
@@ -80,9 +82,7 @@ public class Course {
 	@ManyToMany(mappedBy = "teachings") 
 	private List<Lecturer> lecturers;
 	
-	@OneToMany (mappedBy="courseID")
-	private List<Student_Course> classList;
-	
-	
+	@OneToMany (fetch = FetchType.EAGER, mappedBy="courseID")
+	private Set<Student_Course> classList;
 	
 }
