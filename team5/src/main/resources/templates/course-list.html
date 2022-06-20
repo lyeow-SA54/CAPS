@@ -9,11 +9,11 @@
 
 <body>
 	<div th:replace="layout :: admin-menu"></div>
-	<h3>Course List page</h3>
-	<a th:href="@{/admin/courses/create}">Add
-		Course</a>
+	<h5>Course List page</h5>
+	<h5><a th:href="@{/admin/courses/create}">Add
+			Course</a></h5>
 	<div th:if="${not #lists.isEmpty(clist)}">
-		<table style="border: 1;">
+		<table style="border: 1;" align="center">
 
 			<tr class="listHeading">
 				<th><span th:text="#{fieldLabel.courseID}"></span></th>
