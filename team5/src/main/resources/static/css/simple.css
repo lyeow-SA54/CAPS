@@ -1,4 +1,9 @@
-BODY {
+h5{
+	margin-top: 15px;
+	text-align : center;
+}
+
+/*BODY {
 	font-family : calbiri ;
 	font-size : 10pt;
 	
@@ -107,7 +112,7 @@ ul li a:visited {
  ul li a:hover, ul li  {
     color: white;
     background-color: #675FD3      ;
-}
+}*/
 
 table
 {
@@ -115,7 +120,7 @@ table
 	font-size: 12px;
 	background: #fff;
 	border-collapse: collapse;
-	
+	margin-top: 15px;
 }
 th
 {
@@ -288,7 +293,7 @@ hr {
     border-width: 1px;
 }
 
-.navbar {
+/*.navbar {
   overflow: hidden;
   background-color: #333; 
 }
@@ -344,5 +349,5 @@ hr {
 
 .subnav:hover .subnav-content {
   display: block;
-}
+}*/
 
