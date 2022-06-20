@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="fragments/layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
 <body>
+	<div th:replace="fragments/layout :: admin-menu"></div>
 	<h3>Course List page</h3>
 	<a th:href="@{/admin/courses/create}">Add
 		Course</a>
@@ -15,15 +17,31 @@
 
 			<tr class="listHeading">
 				<th><span th:text="#{fieldLabel.courseID}"></span></th>
+				<th><span th:text="#{fieldLabel.classPax}"></span></th>
 				<th><span th:text="#{fieldLabel.code}"></span></th>
+				<th><span th:text="#{fieldLabel.courseDays}"></span></th>
+				<th><span th:text="#{fieldLabel.credits}"></span></th>
+				<th><span th:text="#{fieldLabel.description}"></span></th>
+				<th><span th:text="#{fieldLabel.fee}"></span></th>
+				<th><span th:text="#{fieldLabel.lessonDay}"></span></th>
+				<th><span th:text="#{fieldLabel.maxCap}"></span></th>
 				<th><span th:text="#{fieldLabel.name}"></span></th>
-				<th><span th:text="#{caption.edit}"></span></th>
-				<th><span th:text="#{caption.delete}"></span></th>
+				<th><span th:text="#{fieldLabel.room}"></span></th>
+				<th><span th:text="#{fieldLabel.startDate}"></span></th>
 			</tr>
 			<tr th:each="course : ${clist}" class="listRecord">
-				<td align="left" th:text="${course.courseID}">Course Id</td>
-				<td align="left" th:text="${course.code}">Course Id</td>
-				<td align="left" th:text="${course.name}">Name</td>
+				<td align="left" th:text="${course.courseID}"></td>
+				<td align="left" th:text="${course.classPax}"></td>
+				<td align="left" th:text="${course.code}"></td>
+				<td align="left" th:text="${course.courseDays}"></td>
+				<td align="left" th:text="${course.credits}"></td>
+				<td align="left" th:text="${course.description}"></td>
+				<td align="left" th:text="${course.fee}"></td>
+				<td align="left" th:text="${course.lessonDay}"></td>
+				<td align="left" th:text="${course.maxCap}"></td>
+				<td align="left" th:text="${course.name}"></td>
+				<td align="left" th:text="${course.room}"></td>
+				<td align="left" th:text="${course.startDate}"></td>
 
 				<td><a th:href="@{/admin/courses/edit/}+${course.courseID}" class="btn btn-default"><span
 							th:text="#{caption.edit}"></span></a></td>
