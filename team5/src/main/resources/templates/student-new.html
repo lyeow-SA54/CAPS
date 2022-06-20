@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
 <body>
-	<h3>New Student page</h3>
+	<div th:replace="layout :: admin-menu"></div>
+	<h5>New Student page</h5>
 
 	<form action="#" th:action="@{/admin/students/create}" th:object="${student}" method="post">
-		<table>
+		<table align="center">
 			<tbody>
 				<tr>
 					<td><span th:text="#{fieldLabel.studentID}"></span></td>
@@ -40,18 +42,17 @@
 					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
 				</tr>
 				<tr>
-					<td>
+					<td><a th:href="@{/admin/students/list}">Back</a></td>
+					<td colspan="2">
 						<fieldset>
 							<input type="submit" value="Create" class="blcass" />
 						</fieldset>
 					</td>
-					<td></td>
-					<td></td>
 				</tr>
 			</tbody>
 		</table>
 	</form>
-	<a th:href="@{/admin/students/list}">Back</a>
+
 </body>
 
 </html>
