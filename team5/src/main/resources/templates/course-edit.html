@@ -9,7 +9,7 @@
 
 
 <body>
-	<div th:replace="fragments/layout :: admin-menu"></div>
+	<div th:replace="layout :: admin-menu"></div>
 
 	<form action="#" th:action="@{/admin/courses/edit/'+course.courseID}" th:object="${course}" method="post">
 		<h5>Course ID : <span th:text="${course.courseID}">
