@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
@@ -8,15 +9,16 @@
 
 
 <body>
-	<h3>Edit Enrolment Page</h3>
+	<div th:replace="layout :: admin-menu"></div>
+	<h5>Edit Enrolment Page</h5>
 	<form action="#" th:action="@{/admin/courses/enroll/edit/'+stu_c.sc_ID}" th:object="${stu_c}" method="post">
-		<table>
+		<table align="center">
 			<tbody>
 				<tr>
 					<td><span th:text="#{fieldLabel.sc_ID}"></span></td>
 					<td>
 						<fieldset>
-							<input type="text" th:field="*{sc_ID}" readonly="readonly"/>
+							<input type="text" th:field="*{sc_ID}" readonly="readonly" />
 						</fieldset>
 					</td>
 					<td th:if="${#fields.hasErrors('sc_ID')}" th:errors="*{sc_ID}"></td>
@@ -26,9 +28,10 @@
 					<td>
 						<fieldset>
 							<select class="form-control" name="status" th:field="*{eventType}">
-                			<option th:each="eventType : ${T(sg.edu.iss.team5.helper.status).values()}" th:value="${eventType}" th:text="${eventType}">
-                			</option>
-            				</select>
+								<option th:each="eventType : ${T(sg.edu.iss.team5.helper.status).values()}"
+									th:value="${eventType}" th:text="${eventType}">
+								</option>
+							</select>
 						</fieldset>
 					</td>
 					<td th:if="${#fields.hasErrors('eventType')}" th:errors="*{eventType}"></td>
@@ -43,16 +46,15 @@
 					<td th:if="${#fields.hasErrors('score')}" th:errors="*{score}"></td>
 				</tr>
 				<tr>
-					<td>
+					<td><a th:href="@{/admin/courses/enroll/list}">Back</a></td>
+					<td colspan="2">
 						<fieldset><input type="submit" value="Update" class="blcass" /></fieldset>
 					</td>
-					<td></td>
-					<td></td>
 				</tr>
 			</tbody>
 		</table>
 	</form>
-	<a th:href="@{/admin/courses/enroll/list}">Back</a>
+
 </body>
 
 </html>
