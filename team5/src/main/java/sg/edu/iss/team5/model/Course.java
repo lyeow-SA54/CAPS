@@ -79,10 +79,10 @@ public class Course {
 		@Column(name = "max_cap")
 	  private int maxCap;
 	 
-	@ManyToMany(mappedBy = "teachings") 
-	private List<Lecturer> lecturers;
+	@ManyToMany(mappedBy = "teachings", cascade = CascadeType.ALL) 
+	private Set<Lecturer> lecturers;
 	
-	@OneToMany (fetch = FetchType.EAGER, mappedBy="courseID")
+	@OneToMany (fetch = FetchType.EAGER, mappedBy="courseID", cascade = CascadeType.ALL)
 	private Set<Student_Course> classList;
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.team5.helper.role;
 import sg.edu.iss.team5.model.Student;
+import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.model.User;
 import sg.edu.iss.team5.repositories.StudentRepo;
 
@@ -22,6 +23,13 @@ public class StudentServiceImpl implements StudentService {
 	@Transactional
 	public ArrayList<Student> findAllStudents() {
 		ArrayList<Student> l = (ArrayList<Student>) studentRepository.findAll();
+		return l;
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<Student_Course> findAllCoursesByStudent(Student student) {
+		ArrayList<Student_Course> l = (ArrayList<Student_Course>) studentRepository.findAllBystudentID(student);
 		return l;
 	}
 	
@@ -57,6 +65,7 @@ public class StudentServiceImpl implements StudentService {
 	@Transactional
 	public void removeStudent(Student student) {
 		studentRepository.delete(student);
+		studentRepository.flush();
 	}
 
 }

@@ -59,8 +59,9 @@ public class Student {
 	@Column(name = "GPA")
 	private double gpa;
 	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="studentID",cascade = CascadeType.ALL)	
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="studentID",cascade = CascadeType.ALL, orphanRemoval = true)	
 	private Set<Student_Course> studyList;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	

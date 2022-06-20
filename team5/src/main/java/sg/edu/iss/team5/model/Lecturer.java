@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sg.edu.iss.team5.helper.role;
 
 
 @Entity
@@ -38,12 +39,19 @@ public class Lecturer {
 	@Column(name = "email")
 	private String email;
 	
-	@ManyToMany 
+	@ManyToMany (cascade = CascadeType.ALL)
 	@JoinTable(name="lecturer_course",
 	joinColumns = @JoinColumn(name = "lecturer_id"),
 	inverseJoinColumns = @JoinColumn(name="course_id"))
-	private List<Course> teachings;
+	private Set<Course> teachings;
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	
+	
+	public Lecturer(String id)
+	{
+		this.lecturerID = id;
+		this.user = new User(id, role.LECTURER);
+		this.user.setLectureruser(this);
+	}
 }
