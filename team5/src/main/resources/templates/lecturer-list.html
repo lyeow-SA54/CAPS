@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
 <body>
-	<h3>Lecturer List page</h3>
-	<a th:href="@{/admin/lecturers/create}">Add
-		Lecturer</a>
+	<div th:replace="layout :: admin-menu"></div>
+	<h5>Lecturer List page</h5>
+	<h5>
+		<a th:href="@{/admin/lecturers/create}">Add Lecturer</a>
+	</h5>
 	<div th:if="${not #lists.isEmpty(lclist)}">
-		<table style="border: 1;">
+		<table style="border: 1;" align="center">
 
 			<tr class="listHeading">
 				<th><span th:text="#{fieldLabel.lecturerID}"></span></th>
 				<th><span th:text="#{fieldLabel.email}"></span></th>
 				<th><span th:text="#{fieldLabel.name}"></span></th>
-				<th><span th:text="#{caption.edit}"></span></th>
-				<th><span th:text="#{caption.delete}"></span></th>
 			</tr>
 			<tr th:each="lecturer : ${lclist}" class="listRecord">
 				<td align="left" th:text="${lecturer.lecturerID}">Lecturer Id</td>
