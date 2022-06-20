@@ -1,18 +1,106 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="fragments/layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
 <body>
-	<h3>New Course page</h3>
+	<div th:replace="fragments/layout :: admin-menu"></div>
+	
 
 	<form action="#" th:action="@{/admin/courses/create}" th:object="${course}" method="post">
-		<table>
+		<table align="center">
 			<tbody>
+			<tr>
+					<td><span th:text="#{fieldLabel.courseID}"></span></td>
+					<td>
+						<fieldset>
+							<input type="text" th:field="*{courseID}" />
+						</fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('courseID')}" th:errors="*{courseID}"></td>
+				<!--</tr>
+				<tr>-->
+					<td><span th:text="#{fieldLabel.classPax}"></span></td>
+					<td>
+						<fieldset><input type="number" th:field="*{classPax}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('classPax')}" th:errors="*{classPax}"></td>
+				</tr>
 				<tr>
+					<td><span th:text="#{fieldLabel.code}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{code}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></td>
+				<!--</tr>
+				<tr>-->
+					<td><span th:text="#{fieldLabel.courseDays}"></span></td>
+					<td>
+						<fieldset><input type="number" th:field="*{courseDays}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('courseDays')}" th:errors="*{courseDays}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.credits}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{credits}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('credits')}" th:errors="*{credits}"></td>
+				<!--</tr>
+				<tr>-->
+					<td><span th:text="#{fieldLabel.description}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{description}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.fee}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{fee}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></td>
+				<!--</tr>
+				<tr>-->
+					<td><span th:text="#{fieldLabel.lessonDay}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{lessonDay}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('lessonDay')}" th:errors="*{lessonDay}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.maxCap}"></span></td>
+					<td>
+						<fieldset><input type="number" th:field="*{maxCap}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('maxCap')}" th:errors="*{maxCap}"></td>
+				<!--</tr>
+				<tr>-->
+					<td><span th:text="#{fieldLabel.name}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{name}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.room}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{room}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('room')}" th:errors="*{room}"></td>
+				<!--</tr>
+				<tr>-->
+					<td><span th:text="#{fieldLabel.startDate}"></span></td>
+					<td>
+						<fieldset><input type="date" th:field="*{startDate}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></td>
+				</tr>
+				<!--<tr>
 					<td><span th:text="#{fieldLabel.courseID}"></span></td>
 					<td>
 						<fieldset>
@@ -22,6 +110,18 @@
 					<td th:if="${#fields.hasErrors('courseID')}" th:errors="*{courseID}"></td>
 				</tr>
 				<tr>
+				
+				
+				
+				<td><span th:text="#{fieldLabel.code}"></span></td>
+					<td>
+						<fieldset><input type="text" th:field="*{code}" /></fieldset>
+					</td>
+					<td th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></td>
+				</tr>
+				
+				
+				
 					<td><span th:text="#{fieldLabel.code}"></span></td>
 					<td>
 						<fieldset>
@@ -38,20 +138,19 @@
 						</fieldset>
 					</td>
 					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
-				</tr>
+				</tr>-->
 				<tr>
-					<td>
+					<td><a th:href="@{/admin/courses/list}">Back</a></td>
+					<td colspan="2">
 						<fieldset>
 							<input type="submit" value="Create" class="blcass" />
 						</fieldset>
 					</td>
-					<td></td>
-					<td></td>
 				</tr>
 			</tbody>
 		</table>
 	</form>
-	<a th:href="@{/admin/courses/list}">Back</a>
+
 </body>
 
 </html>
