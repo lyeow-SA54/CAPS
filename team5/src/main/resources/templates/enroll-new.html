@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+
+<head th:replace="layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
 <body>
-	<h3>New Course Enrollment page</h3>
+	<div th:replace="layout :: admin-menu"></div>
+	<h5>New Course Enrollment page</h5>
 
 	<form action="#" th:action="@{/admin/courses/enroll/create}" th:object="${student_course}" method="post">
-		<table>
+		<table align="center">
 			<tbody>
 				<tr>
 					<td><span th:text="#{fieldLabel.studentID}"></span></td>
@@ -35,9 +37,10 @@
 					<td>
 						<fieldset>
 							<select class="form-control" name="status" th:field="*{eventType}">
-                			<option th:each="eventType : ${T(sg.edu.iss.team5.helper.status).values()}" th:value="${eventType}" th:text="${eventType}">
-                			</option>
-            				</select>
+								<option th:each="eventType : ${T(sg.edu.iss.team5.helper.status).values()}"
+									th:value="${eventType}" th:text="${eventType}">
+								</option>
+							</select>
 						</fieldset>
 					</td>
 					<td th:if="${#fields.hasErrors('eventType')}" th:errors="*{eventType}"></td>
@@ -51,9 +54,10 @@
 					</td>
 					<td th:if="${#fields.hasErrors('score')}" th:errors="*{score}"></td>
 				</tr>
-				
+
 				<tr>
-					<td>
+					<td><a th:href="@{/admin/courses/enroll/list}">Back</a></td>
+					<td colspan="2">
 						<fieldset>
 							<input type="submit" value="Create" class="blcass" />
 						</fieldset>
@@ -62,7 +66,7 @@
 			</tbody>
 		</table>
 	</form>
-	<a th:href="@{/admin/courses/enroll/list}">Back</a>
+
 </body>
 
 </html>
