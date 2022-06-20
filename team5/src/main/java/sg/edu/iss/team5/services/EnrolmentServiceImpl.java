@@ -32,6 +32,13 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		return l;
 	}
 	
+	@Override
+	@Transactional
+	public ArrayList<Student_Course> findAllEnrolmentByCourse(Course course) {
+		ArrayList<Student_Course> l = (ArrayList<Student_Course>) enrollRepository.findAllByCourseID(course);
+		return l;
+	}
+	
 	@Transactional
 	public Student_Course findEnrolment(String id) {
 		return enrollRepository.findById(id).orElse(null);

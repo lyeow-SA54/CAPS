@@ -73,7 +73,16 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		s1.setStudyList(sclist);
 		c1.setClassList(sclist);
 		sr.save(s1);
-		er.save(sc1);
+		Lecturer l1 = new Lecturer("L12345");
+		Set<Course> courselist = new HashSet<Course>();
+		courselist.add(c1);
+		courselist.add(c2);
+		l1.setTeachings(courselist);
+//		Set<Lecturer> lecturerlist = new HashSet<Lecturer>();
+//		c1.setLecturers(lecturerlist);
+//		c2.setLecturers(lecturerlist);
+		lcr.save(l1);
+//		er.save(sc1);
     }
 
 }

@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,10 +39,12 @@ public class Student_Course {
 	@Column(name = "sc_ID")
     private String sc_ID;
 	
-	@ManyToOne
+	@ManyToOne 
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "sc_studentID")
 	private Student studentID;
-	@ManyToOne
+	@ManyToOne 
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "sc_courseID")
 	private Course courseID;
 	@Basic

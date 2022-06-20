@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.team5.model.Course;
+import sg.edu.iss.team5.model.Lecturer;
 import sg.edu.iss.team5.repositories.CourseRepo;
 
 @Service
@@ -20,6 +21,11 @@ public class CourseServiceImpl implements CourseService {
 	@Transactional
 	public ArrayList<Course> findAllCourses() {
 		ArrayList<Course> l = (ArrayList<Course>) courseRepository.findAll();
+		return l;
+	}
+	
+	public ArrayList<Course> findAllLecturerCourses(Lecturer lecturer) {
+		ArrayList<Course> l = (ArrayList<Course>) courseRepository.findAllByLecturers(lecturer);
 		return l;
 	}
 	

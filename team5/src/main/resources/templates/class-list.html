@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<h3>Lecturer Course List page</h3>
+	<div th:if="${not #lists.isEmpty(clist)}">
+		<table style="border: 1;">
+
+			<tr class="listHeading">
+				<th><span th:text="#{fieldLabel.courseID}"></span></th>
+				<th><span th:text="#{fieldLabel.code}"></span></th>
+				<th><span th:text="#{fieldLabel.name}"></span></th>
+				<th><span th:text="#{caption.selectc}"></span></th>
+			</tr>
+			<tr th:each="course : ${clist}" class="listRecord">
+				<td align="left" th:text="${course.courseID}">Course Id</td>
+				<td align="left" th:text="${course.code}">Course Id</td>
+				<td align="left" th:text="${course.name}">Name</td>
+				<td><a th:href="${'/lecturer/'+{lecturer.lecturerID}+'/courses/grade/'+{course.courseID}}" class="btn btn-default"><span
+							th:text="#{caption.selectc}"></span></a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>
