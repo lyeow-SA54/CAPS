@@ -3,6 +3,7 @@ package sg.edu.iss.team5.services;
 import java.util.ArrayList;
 
 import sg.edu.iss.team5.model.Course;
+import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
 
 public interface EnrolmentService {
@@ -18,5 +19,7 @@ public interface EnrolmentService {
 	void removeEnrolment(Student_Course course);
 
 	ArrayList<Student_Course> findAllEnrolmentByCourse(Course course);	
+	
+	Student_Course findEnrolmentByCourseAndStudent(Course course, Student student);
 
 }

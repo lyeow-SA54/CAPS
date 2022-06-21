@@ -92,7 +92,7 @@ public class LecturerController {
 		return mav;
 	}
 
-	@RequestMapping(value = "{lcid}/courses/grade/{cid}", method = RequestMethod.GET)
+	@RequestMapping(value = "{lcid}/courses/{cid}/grade/", method = RequestMethod.GET)
 	public ModelAndView studentSelectionPage(@PathVariable String lcid, @PathVariable String cid) {
 		ModelAndView mav = new ModelAndView("class-student-list");
 		Course course = cService.findCourse(cid);
@@ -104,8 +104,27 @@ public class LecturerController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "{lcid}/courses/grade/{cid}/{sid}", method = RequestMethod.GET)
+	@RequestMapping(value = "{lcid}/courses/{cid}/grade/{sid}", method = RequestMethod.GET)
 	public ModelAndView studentGradingPage(@PathVariable String lcid, @PathVariable String cid, @PathVariable String sid) {
+		ModelAndView mav = new ModelAndView("class-student-grading");
+		Course course = cService.findCourse(cid);
+		Lecturer lecturer = lService.findLecturer(lcid);
+		Student student = sService.findStudent(sid);
+		mav.addObject("course", course);
+		mav.addObject("lecturer", lecturer);
+		mav.addObject("student", student);
+		Student_Course sc = eService.findEnrolmentByCourseAndStudent(course, student);
+		mav.addObject("enrolment", sc);
+		ArrayList<Student_Course> scList = eService.findAllEnrolmentByCourse(course);
+		mav.addObject("sclist", scList);
+		return mav;
+	}
+
+	@RequestMapping(value = "{lcid}/courses/{cid}/grade/{sid}", method = RequestMethod.POST)
+	public ModelAndView editEmployee(@ModelAttribute @Valid Student_Course enrolment, BindingResult result,
+			@PathVariable String lcid, @PathVariable String cid, @PathVariable String sid){
+		if (result.hasErrors())
+			return new ModelAndView("class-student-grading");
 		ModelAndView mav = new ModelAndView("class-student-list");
 		Course course = cService.findCourse(cid);
 		Lecturer lecturer = lService.findLecturer(lcid);
@@ -113,20 +132,9 @@ public class LecturerController {
 		mav.addObject("lecturer", lecturer);
 		ArrayList<Student_Course> scList = eService.findAllEnrolmentByCourse(course);
 		mav.addObject("sclist", scList);
-		return mav;
-	}
-
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView editEmployee(@ModelAttribute @Valid Course course, BindingResult result,
-			@PathVariable String id) throws CourseNotFound {
-
-		if (result.hasErrors())
-			return new ModelAndView("course-edit");
-
-		ModelAndView mav = new ModelAndView("forward:/admin/courses/list");
-		String message = "Course was successfully updated.";
+		String message = "Enrolment was successfully updated.";
 		System.out.println(message);
-		cService.changeCourse(course);
+		eService.changeEnrolment(enrolment);
 		return mav;
 	}
 

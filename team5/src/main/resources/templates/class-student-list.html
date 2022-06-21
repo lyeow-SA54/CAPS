@@ -23,7 +23,7 @@
 				<td align="left" th:text="${enrolment.studentID.name}">Course Id</td>
 				<td align="left" th:text="${enrolment.score}">Name</td>
 
-				<td><a th:href="${'/lecturer/'+{lecturer.lecturerID}+'/courses/grade/'}" class="btn btn-default"><span
+				<td><a th:href="${'/lecturer/'+{lecturer.lecturerID}+'/courses/'+{course.courseID}+'/grade/'+{enrolment.studentID.studentID}}" class="btn btn-default"><span
 							th:text="#{caption.grade}"></span></a></td>
 			</tr>
 		</table>

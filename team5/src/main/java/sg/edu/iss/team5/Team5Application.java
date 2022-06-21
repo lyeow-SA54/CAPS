@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.BeanDefinitionDsl.Role;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import sg.edu.iss.team5.helper.role;
 import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Admin;
 import sg.edu.iss.team5.model.Course;
@@ -29,6 +29,7 @@ import sg.edu.iss.team5.repositories.UserRepo;
 
 
 @SpringBootApplication
+@EnableWebSecurity
 //public class Team5Application{
 //	public static void main(String[] args) {
 //		SpringApplication.run(Team5Application.class, args);

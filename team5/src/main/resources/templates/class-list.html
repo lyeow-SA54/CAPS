@@ -21,7 +21,7 @@
 				<td align="left" th:text="${course.courseID}">Course Id</td>
 				<td align="left" th:text="${course.code}">Course Id</td>
 				<td align="left" th:text="${course.name}">Name</td>
-				<td><a th:href="${'/lecturer/'+{lecturer.lecturerID}+'/courses/grade/'+{course.courseID}}" class="btn btn-default"><span
+				<td><a th:href="${'/lecturer/'+{lecturer.lecturerID}+'/courses/'+{course.courseID}+'/grade/'}" class="btn btn-default"><span
 							th:text="#{caption.selectc}"></span></a></td>
 			</tr>
 		</table>

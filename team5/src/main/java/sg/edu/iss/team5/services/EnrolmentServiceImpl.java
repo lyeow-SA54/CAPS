@@ -44,6 +44,12 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		return enrollRepository.findById(id).orElse(null);
 
 	}
+	
+	@Transactional
+	public Student_Course findEnrolmentByCourseAndStudent(Course course, Student student) {
+		return enrollRepository.findByCourseIDAndStudentID(course, student);
+
+	}
 
 	/* (non-Javadoc)
 	 * @see edu.iss.cats.service.EmployeeService#createEmployee(edu.iss.cats.model.Employee)

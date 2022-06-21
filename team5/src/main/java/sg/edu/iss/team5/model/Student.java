@@ -28,7 +28,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sg.edu.iss.team5.helper.role;
 import sg.edu.iss.team5.helper.status;
 
 @Entity
@@ -70,7 +69,8 @@ public class Student {
 		this.studentID = id;
 		this.name = name;
 		this.email = email;
-		this.user = new User(id, role.STUDENT);
-		this.user.setStudentuser(this);
+		Role role = new Role("STUDENT");
+		List<Role> rolelist = List.of(role);
+		this.user  = new User(id, rolelist);
 	}
 }

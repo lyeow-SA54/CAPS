@@ -19,7 +19,6 @@ import javax.persistence.JoinColumn;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sg.edu.iss.team5.helper.role;
 
 
 @Entity
@@ -51,7 +50,8 @@ public class Lecturer {
 	public Lecturer(String id)
 	{
 		this.lecturerID = id;
-		this.user = new User(id, role.LECTURER);
-		this.user.setLectureruser(this);
+		Role role = new Role("LECTURER");
+		List<Role> rolelist = List.of(role);
+		this.user  = new User(id, rolelist);
 	}
 }

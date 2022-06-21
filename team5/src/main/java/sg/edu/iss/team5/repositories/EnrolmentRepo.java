@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import sg.edu.iss.team5.model.Course;
+import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
 
 public interface EnrolmentRepo extends JpaRepository<Student_Course, String>{
@@ -13,4 +14,6 @@ public interface EnrolmentRepo extends JpaRepository<Student_Course, String>{
 	ArrayList<String> findAllStudent_CourseIDs();
 	
 	ArrayList<Student_Course> findAllByCourseID(Course course);
+	
+	Student_Course findByCourseIDAndStudentID(Course course, Student student);
 }

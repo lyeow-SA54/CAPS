@@ -1,23 +1,33 @@
 package sg.edu.iss.team5.services;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import sg.edu.iss.team5.helper.role;
+import sg.edu.iss.team5.model.Role;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.model.User;
+import sg.edu.iss.team5.repositories.RoleRepo;
 import sg.edu.iss.team5.repositories.StudentRepo;
+import sg.edu.iss.team5.repositories.UserRepo;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
 	@Resource
 	private StudentRepo studentRepository;
+	
+	@Resource
+	private UserRepo userRepository;
+	
+	@Resource
+	private RoleRepo roleRepository;
 
 	@Override
 	@Transactional
@@ -45,7 +55,12 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	@Transactional
 	public Student createStudent(Student student) {
-		student.setUser(new User(student.getStudentID(), role.STUDENT));
+		Role role = new Role("STUDENT");
+		List<Role> rolelist = List.of(role);
+		User user  = new User(student.getStudentID(), rolelist);
+		userRepository.saveAndFlush(user);
+		roleRepository.saveAndFlush(role);
+		student.setUser(user);
 		return studentRepository.saveAndFlush(student);
 	}
 
