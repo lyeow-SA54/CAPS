@@ -35,12 +35,21 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 				}
 			} else if(authority.getAuthority().equals("LECTURER")) {
 				try {
-					redirectStrategy.sendRedirect(arg0, arg1, "/lecturer/");
+					redirectStrategy.sendRedirect(arg0, arg1, "/lecturer/courses/list");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else {
+			} 
+			else if(authority.getAuthority().equals("STUDENT")) {
+				try {
+					redirectStrategy.sendRedirect(arg0, arg1, "/student/courses/list");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else {
 	            throw new IllegalStateException();
 	        }
 		});
