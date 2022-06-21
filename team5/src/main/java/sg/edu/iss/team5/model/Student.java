@@ -5,29 +5,28 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
-
 import javax.persistence.CascadeType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
 
-
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sg.edu.iss.team5.helper.IdGenerator;
 import sg.edu.iss.team5.helper.status;
 
 @Entity
@@ -39,6 +38,14 @@ import sg.edu.iss.team5.helper.status;
 public class Student {
 	
 	@Id
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_id_gen")
+//    @GenericGenerator(
+//        name = "custom_id_gen", 
+//        strategy = "sg.edu.iss.team5.helper.IdGenerator", 
+//        parameters = {
+//            @Parameter(name = IdGenerator.INCREMENT_PARAM, value = "50"),
+//            @Parameter(name = IdGenerator.VALUE_PREFIX_PARAMETER, value = "S_"),
+//            @Parameter(name = IdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
 	@Column(name = "student_id")
 	private String studentID;
 	@Basic
@@ -73,4 +80,5 @@ public class Student {
 		List<Role> rolelist = List.of(role);
 		this.user  = new User(id, rolelist);
 	}
+	
 }

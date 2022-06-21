@@ -1,4 +1,4 @@
-package sg.edu.iss.team5.helper;
+package sg.edu.iss.team5.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

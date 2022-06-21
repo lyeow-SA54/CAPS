@@ -1,3 +1,4 @@
+package sg.edu.iss.team5.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

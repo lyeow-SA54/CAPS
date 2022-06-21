@@ -61,7 +61,6 @@ import sg.edu.iss.team5.repositories.UserRepo;
     public void run(String... args) throws Exception
     {
 		Student s1 = new Student("S12345", "Student1", "abc@email.com");
-//		sr.save(s1);
 		Course c1 = new Course();
 		c1.setCourseID("C12345");
 		cr.save(c1);
@@ -79,11 +78,7 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		courselist.add(c1);
 		courselist.add(c2);
 		l1.setTeachings(courselist);
-//		Set<Lecturer> lecturerlist = new HashSet<Lecturer>();
-//		c1.setLecturers(lecturerlist);
-//		c2.setLecturers(lecturerlist);
 		lcr.save(l1);
-//		er.save(sc1);
     }
 
 }
