@@ -25,6 +25,7 @@ import sg.edu.iss.team5.repositories.EnrolmentRepo;
 import sg.edu.iss.team5.repositories.LecturerRepo;
 import sg.edu.iss.team5.repositories.StudentRepo;
 import sg.edu.iss.team5.repositories.UserRepo;
+import sg.edu.iss.team5.services.CourseService;
 
 
 
@@ -42,6 +43,7 @@ import sg.edu.iss.team5.repositories.UserRepo;
 	@Autowired CourseRepo cr;
 	@Autowired LecturerRepo lcr;
 	@Autowired EnrolmentRepo er;
+	@Autowired CourseService cService;
 	public static void main(String[] args) {
 		SpringApplication.run(Team5Application.class, args);
 
@@ -74,6 +76,19 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		c1.setClassList(sclist);
 		sr.save(s1);
 		er.save(sc1);
+		Lecturer l1 = new Lecturer();
+		l1.setLecturerID("L1");
+		l1.setName("Lecturer 1");
+		Lecturer l2 = new Lecturer();
+		l2.setLecturerID("L2");
+		l2.setName("Lecturer 2");
+		lcr.save(l1);
+		lcr.save(l2);
+		cService.assignCourseToLecturer(c1.getCourseID(),l1.getLecturerID());
+		cService.assignCourseToLecturer(c1.getCourseID(),l2.getLecturerID());
+		
+		//cService.removeLectureFromCourse(c1.getCourseID(),l2.getLecturerID());
+    
     }
 
 }

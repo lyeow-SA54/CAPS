@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class Course {
 	}
 
 	@Id
-	@Column(name = "course_id")
+	@Column(name = "course_id",updatable = false, unique=true, nullable = false)
 	private String courseID;
 	@Basic
 	@Column(name = "code")
@@ -80,7 +81,7 @@ public class Course {
 	  private int maxCap;
 	 
 	@ManyToMany(mappedBy = "teachings") 
-	private List<Lecturer> lecturers;
+	private Set<Lecturer> lecturersList;
 	
 	@OneToMany (fetch = FetchType.EAGER, mappedBy="courseID")
 	private Set<Student_Course> classList;

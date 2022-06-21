@@ -9,53 +9,75 @@
 
 <body>
 	<div th:replace="layout :: admin-menu"></div>
-	<h5>Course List page</h5>
-	<h5><a th:href="@{/admin/courses/create}">Add
-			Course</a></h5>
-	<div th:if="${not #lists.isEmpty(clist)}">
-		<table style="border: 1;" align="center">
+	<h5>Assign Course page</h5>
+	<form action="#" modelAttribute="selectedLecturer" th:action="@{/admin/courses/assign/{id}(id=${course.courseID})}" th:object="${course}" method="post">
+		<h5>Course ID : <span th:text="${course.courseID}">
+			</span></h5>
+		<table align="center">
+		<tbody>
 
 			<tr class="listHeading">
 				<th><span th:text="#{fieldLabel.courseID}"></span></th>
-				<th><span th:text="#{fieldLabel.classPax}"></span></th>
+				
 				<th><span th:text="#{fieldLabel.code}"></span></th>
 				<th><span th:text="#{fieldLabel.courseDays}"></span></th>
 				<th><span th:text="#{fieldLabel.credits}"></span></th>
 				<th><span th:text="#{fieldLabel.description}"></span></th>
-				<th><span th:text="#{fieldLabel.fee}"></span></th>
+				
 				<th><span th:text="#{fieldLabel.lessonDay}"></span></th>
 				<th><span th:text="#{fieldLabel.maxCap}"></span></th>
-				<th><span th:text="#{fieldLabel.name}"></span></th>
+				<th><span th:text="#{fieldLabel.courseName}"></span></th>
 				<th><span th:text="#{fieldLabel.room}"></span></th>
 				<th><span th:text="#{fieldLabel.startDate}"></span></th>
 				<th><span th:text="#{fieldLabel.lecturersList}"></span></th>
+				
 			</tr>
-			<tr th:each="course : ${clist}" class="listRecord">
+			<tr>
 				<td align="left" th:text="${course.courseID}"></td>
-				<td align="left" th:text="${course.classPax}"></td>
+				
 				<td align="left" th:text="${course.code}"></td>
 				<td align="left" th:text="${course.courseDays}"></td>
 				<td align="left" th:text="${course.credits}"></td>
 				<td align="left" th:text="${course.description}"></td>
-				<td align="left" th:text="${course.fee}"></td>
+				
 				<td align="left" th:text="${course.lessonDay}"></td>
 				<td align="left" th:text="${course.maxCap}"></td>
 				<td align="left" th:text="${course.name}"></td>
 				<td align="left" th:text="${course.room}"></td>
 				<td align="left" th:text="${course.startDate}"></td>
 				<td align="left" >
-					<ul th:each="l : ${course.lecturersList}">
+				<ul th:each="l : ${course.lecturersList}">
 						<li th:text="${l.name}"></li>
+						<li> <a th:href="@{/admin/courses/assign/remove/{cid}/{lid}(cid=${course.courseID},lid=${l.lecturerID})}" class="btn btn-default"><span
+							th:text="#{caption.remove}"></span></a></li>
 					</ul>
-				</td>
-
-				<td> <a th:href="@{/admin/courses/assign/}+${course.courseID}" class="btn btn-default"><span
-							th:text="#{caption.assign}"></span></a></td>
-				<td><a th:href="@{/admin/courses/edit/}+${course.courseID}" class="btn btn-default"><span
-							th:text="#{caption.edit}"></span></a></td>
-				<td><a th:href="@{/admin/courses/delete/{id}(id=${course.courseID})}" class="btn btn-default"><span
-							th:text="#{caption.delete}"></span></a></td>
+					</td>
 			</tr>
+			
+			<tr>
+					<td><span th:text="#{fieldLabel.lecturersList}"></span></td>
+					<td>						
+						<fieldset>
+							<select class="form-control" path="lecturerID" th:field="${l.lecturerID}">
+								<option value="">Select Lecturer</option>
+								<option th:each="lecturer: ${lecturer}" th:value="${lecturer.lecturerID}" th:utext="${lecturer.name}">
+								</option>
+							</select>
+						</fieldset>
+						
+					</td>
+					<td th:if="${#fields.hasErrors('lecturersList')}" th:errors="${course.lecturersList}"></td>
+			</tr>
+			
+				<div th:if="${not #lists.isEmpty(lecturers)}">
+		
+	</div>
+				<tr>
+					<td><a th:href="@{/admin/courses/list}">Back</a></td>
+					<td>
+						<fieldset><input type="submit" value="Assign" class="blcass" /></fieldset>
+					</td>
+				</tr>
 		</table>
 	</div>
 </body>

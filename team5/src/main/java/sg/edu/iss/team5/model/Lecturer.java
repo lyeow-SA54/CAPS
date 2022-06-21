@@ -38,11 +38,11 @@ public class Lecturer {
 	@Column(name = "email")
 	private String email;
 	
-	@ManyToMany 
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="lecturer_course",
 	joinColumns = @JoinColumn(name = "lecturer_id"),
 	inverseJoinColumns = @JoinColumn(name="course_id"))
-	private List<Course> teachings;
+	private Set<Course> teachings;
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	
