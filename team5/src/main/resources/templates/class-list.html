@@ -9,24 +9,42 @@
 
 <body>
 	<div th:replace="lecturer-layout :: lecturer-menu"></div>
-	<h5>Lecturer Course List Page</h5>
 	<div th:if="${not #lists.isEmpty(clist)}">
-		<table style="border: 1;" align="center">
-
-			<tr class="listHeading">
-				<th><span th:text="#{fieldLabel.courseID}"></span></th>
-				<th><span th:text="#{fieldLabel.code}"></span></th>
-				<th><span th:text="#{fieldLabel.name}"></span></th>
-				<th><span th:text="#{caption.selectc}"></span></th>
-			</tr>
-			<tr th:each="course : ${clist}" class="listRecord">
-				<td align="left" th:text="${course.courseID}">Course Id</td>
-				<td align="left" th:text="${course.code}">Course Code</td>
-				<td align="left" th:text="${course.name}">Name</td>
-				<td><a th:href="${'/lecturer/courses/'+{course.courseID}+'/grade/'}" class="btn btn-default"><span
-							th:text="#{caption.selectc}"></span></a></td>
-			</tr>
-		</table>
+		<div class="container">
+			<div class="row">
+				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
+					<h4>Lecturer Course List Page</h4>
+				</div>
+				<div class="col-6"></div>
+				<div class="col-3" style="margin-top: 20px; margin-bottom: 20px; text-align:right;">
+					<h5 style="text-decoration: underline;"><a th:href="@{/admin/students/create}">Add Student</a>
+					</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped">
+						<thead>
+							<tr class="listHeading">
+								<th><span th:text="#{fieldLabel.courseID}"></span></th>
+								<th><span th:text="#{fieldLabel.code}"></span></th>
+								<th><span th:text="#{fieldLabel.name}"></span></th>
+								<th><span th:text="#{caption.selectc}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="course : ${clist}" class="listRecord">
+								<td align="left" th:text="${course.courseID}">Course Id</td>
+								<td align="left" th:text="${course.code}">Course Code</td>
+								<td align="left" th:text="${course.name}">Name</td>
+								<td><a th:href="${'/lecturer/courses/'+{course.courseID}+'/grade/'}"
+										class="btn btn-default"><span th:text="#{caption.selectc}"></span></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 
