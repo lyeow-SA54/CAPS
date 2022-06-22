@@ -14,12 +14,12 @@
 			<div class="col-3"></div>
 			<div class="col-6">
 				<form action="#" th:action="@{/admin/lecturers/edit/'+lecturer.lecturerID}" th:object="${lecturer}"
-					method="post">
-					<h5 style="text-align:center; margin:15px;">Editing Lecturer ID : <span
-							th:text="${lecturer.lecturerID}"></span></h5>
+					method="post">					
 					<fieldset>
 						<input type="hidden" th:field="*{lecturerID}" />
 					</fieldset>
+					<h5 style="text-align:center;">Editing Lecturer ID : <span
+							th:text="${lecturer.lecturerID}"></span></h5>
 					<table class="table table-borderless">
 						<tbody>
 							<tr>
