@@ -80,18 +80,15 @@ public class StudentController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/courses/enroll", method = RequestMethod.POST)
-    public ModelAndView createNewCourseEnroll(@ModelAttribute @Valid Course course, BindingResult result) {
-        if (result.hasErrors())
-            return new ModelAndView("student-enroll-new");
+	@RequestMapping(value = "/courses/enroll/{cid}", method = RequestMethod.GET)
+    public ModelAndView createNewCourseEnroll(@PathVariable String cid) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         ModelAndView mav = new ModelAndView("student-enroll-new");
         Student student = sService.findStudent(username);
-        Student_Course enrolment = new Student_Course(student, course, status.SUBMITTED);
-        eService.createEnrolment(enrolment);
+        Course course = cService.findCourse(cid);
+        eService.createEnrolment(new Student_Course(student, course, status.SUBMITTED));
         ArrayList<Course>cList = eService.findAvailableEnrolmentByStudent(student);
         mav.addObject("clist", cList);
-        mav.setViewName("forward:/student/courses/enroll/list");
         return mav;     
     }
 }

@@ -80,7 +80,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 			else
 		{availcourseList.add(c);}
 		});
-		return courseList;
+		return availcourseList;
 	}
 
 	/* (non-Javadoc)
