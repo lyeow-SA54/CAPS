@@ -10,60 +10,79 @@
 
 <body>
 	<div th:replace="layout :: admin-menu"></div>
-	<h5>Edit Enrolment Page</h5>
-	<form action="#" th:action="@{/admin/courses/enroll/edit/'+stu_c.sc_ID}" th:object="${stu_c}" method="post">
-		<table align="center">
-			<tbody>
-				<tr>
-					<td><span th:text="#{fieldLabel.sc_ID}"></span></td>
-					<td>
-						<fieldset>
-							<input type="text" th:field="*{sc_ID}" readonly="readonly" />
-						</fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('sc_ID')}" th:errors="*{sc_ID}"></td>
-				</tr>
-			<tr>
-					<td><span th:text="#{fieldLabel.courseID}"></span></td>
-					<td>
-						<fieldset>
-							<input type="text" th:field="*{courseID.courseID}" readonly="readonly"/>
-						</fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('courseID')}" th:errors="*{courseID}"></td>
-				</tr>
-				<tr>
-					<td><span th:text="#{fieldLabel.eventType}"></span></td>
-					<td>
-						<fieldset>
-							<select class="form-control" name="status" th:field="*{eventType}">
-								<option th:each="eventType : ${T(sg.edu.iss.team5.helper.status).values()}"
-									th:value="${eventType}" th:text="${eventType}">
-								</option>
-							</select>
-						</fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('eventType')}" th:errors="*{eventType}"></td>
-				</tr>
-				<tr>
-					<td><span th:text="#{fieldLabel.score}"></span></td>
-					<td>
-						<fieldset>
-							<input type="text" th:field="*{score}" />
-						</fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('score')}" th:errors="*{score}"></td>
-				</tr>
-				<tr>
-					<td><a th:href="@{/admin/courses/enroll/list}">Back</a></td>
-					<td colspan="2">
-						<fieldset><input type="submit" value="Update" class="blcass" /></fieldset>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</form>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<form action="#" th:action="@{/admin/courses/enroll/edit/'+stu_c.sc_ID}" th:object="${stu_c}"
+					method="post">
+					
+					<h5 style="text-align:center; margin:15px;">Editing Enrollment ID : <span
+							th:text="${stu_c.sc_ID}"></span></h5>
+					<fieldset>
+						<input type="hidden" th:field="*{sc_ID}" />
+					</fieldset>
+					<table class="table table-borderless">
+						<tbody>
+							<tr>
+								<td><span th:text="#{fieldLabel.studentID}"></span></td>
+								<td>
+									<fieldset>
+										<input type="text" th:field="*{studentID}" readonly="readonly" />
+									</fieldset>
+								</td>
+								<td th:if="${#fields.hasErrors('studentID')}" th:errors="*{studentID}"></td>
+							</tr>
+							<tr>
+								<td><span th:text="#{fieldLabel.courseID}"></span></td>
+								<td>
+									<fieldset>
+										<input type="text" th:field="*{courseID.courseID}" readonly="readonly" />
+									</fieldset>
+								</td>
+								<td th:if="${#fields.hasErrors('courseID')}" th:errors="*{courseID}"></td>
+							</tr>
+							<tr>
+								<td><span th:text="#{fieldLabel.eventType}"></span></td>
+								<td>
+									<fieldset>
+										<select class="form-control" style="width:210px;" name="status" th:field="*{eventType}">
+											<option th:each="eventType : ${T(sg.edu.iss.team5.helper.status).values()}"
+												th:value="${eventType}" th:text="${eventType}">
+											</option>
+										</select>
+									</fieldset>
+								</td>
+								<td th:if="${#fields.hasErrors('eventType')}" th:errors="*{eventType}"></td>
+							</tr>
+							<tr>
+								<td><span th:text="#{fieldLabel.score}"></span></td>
+								<td>
+									<fieldset>
+										<input type="text" th:field="*{score}" />
+									</fieldset>
+								</td>
+								<td th:if="${#fields.hasErrors('score')}" th:errors="*{score}"></td>
+							</tr>
+							<tr>
+								<td>
+									<div style="padding-top:15px;">
+										<a th:href="@{/admin/courses/enroll/list}">Back</a>
+									</div>
+								</td>
+								<td>
+									<fieldset>
+										<input type="submit" value="Update" class="btn btn-primary" />
+									</fieldset>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
 </body>
 
 </html>
