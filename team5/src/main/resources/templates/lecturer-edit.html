@@ -7,44 +7,54 @@
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
-
 <body>
 	<div th:replace="layout :: admin-menu"></div>
-	<h5>Edit Course page</h5>
-	<form action="#" th:action="@{/admin/lecturers/edit/'+lecturer.lecturerID}" th:object="${lecturer}" method="post">
-		<table align="center">
-			<tbody>
-				<tr>
-					<td><span th:text="#{fieldLabel.lecturerID}"></span></td>
-					<td>
-						<fieldset><input type="text" th:field="*{lecturerID}" readonly="readonly" /></fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('lecturerID')}" th:errors="*{lecturerID}"></td>
-				</tr>
-				<tr>
-					<td><span th:text="#{fieldLabel.email}"></span></td>
-					<td>
-						<fieldset><input type="text" th:field="*{email}" /></fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
-				</tr>
-				<tr>
-					<td><span th:text="#{fieldLabel.name}"></span></td>
-					<td>
-						<fieldset><input type="text" th:field="*{name}" /></fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
-				</tr>
-				<tr>
-					<td><a th:href="@{/admin/lecturers/list}">Back</a></td>
-					<td colspan="2">
-						<fieldset><input type="submit" value="Update" class="blcass" /></fieldset>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</form>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<form action="#" th:action="@{/admin/lecturers/edit/'+lecturer.lecturerID}" th:object="${lecturer}"
+					method="post">
+					<h5 style="text-align:center; margin:15px;">Editing Lecturer ID : <span
+							th:text="${lecturer.lecturerID}"></span></h5>
+					<fieldset>
+						<input type="hidden" th:field="*{lecturerID}" />
+					</fieldset>
+					<table class="table table-borderless">
+						<tbody>
+							<tr>
+								<td><span th:text="#{fieldLabel.email}"></span></td>
+								<td>
+									<fieldset><input type="text" th:field="*{email}" /></fieldset>
+								</td>
+								<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+							</tr>
+							<tr>
+								<td><span th:text="#{fieldLabel.name}"></span></td>
+								<td>
+									<fieldset><input type="text" th:field="*{name}" /></fieldset>
+								</td>
+								<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+							</tr>
+							<tr>
+								<td>
+									<div style="padding-top:15px;">
+										<a th:href="@{/admin/lecturers/list}">Back</a>
+									</div>
+								</td>
+								<td>
+									<fieldset>
+										<input type="submit" value="Update" class="btn btn-primary" />
+									</fieldset>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
 </body>
 
 </html>
