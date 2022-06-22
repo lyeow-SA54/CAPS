@@ -61,4 +61,11 @@ public class Student_Course {
 		this.score=score;
 		eventType = event;
 	}
+	
+	public Student_Course(Student student, Course course, status event)
+	{
+		studentID = student;
+		courseID = course;
+		eventType = event;
+	}
 }

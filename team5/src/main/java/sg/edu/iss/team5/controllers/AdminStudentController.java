@@ -92,10 +92,11 @@ public class AdminStudentController {
 		if (result.hasErrors())
 			return new ModelAndView("student-edit");
 
-		ModelAndView mav = new ModelAndView("forward:/admin/students/list");
+		ModelAndView mav = new ModelAndView();
 		String message = "Student was successfully updated.";
 		System.out.println(message);
 		sService.changeStudent(student);
+		mav.setViewName("forward:/admin/students/list");
 		return mav;
 	}
 

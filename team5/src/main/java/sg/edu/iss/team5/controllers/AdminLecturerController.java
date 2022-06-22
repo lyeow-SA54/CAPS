@@ -85,9 +85,8 @@ public class AdminLecturerController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView editEmployee(@ModelAttribute @Valid Lecturer lecturer, BindingResult result,
-			@PathVariable String id) throws LecturerNotFound {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView editEmployee(@ModelAttribute @Valid Lecturer lecturer, BindingResult result) throws LecturerNotFound {
 
 		if (result.hasErrors())
 			return new ModelAndView("lecturer-edit");

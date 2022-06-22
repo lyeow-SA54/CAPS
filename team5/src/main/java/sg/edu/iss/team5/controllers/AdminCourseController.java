@@ -96,17 +96,19 @@ public class AdminCourseController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView editEmployee(@ModelAttribute @Valid Course course, BindingResult result,
-			@PathVariable String id) throws CourseNotFound {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView editEmployee(@ModelAttribute @Valid Course course, BindingResult result) throws CourseNotFound {
 
 		if (result.hasErrors())
 			return new ModelAndView("course-edit");
 
-		ModelAndView mav = new ModelAndView("forward:/admin/courses/list");
+		ModelAndView mav = new ModelAndView("course-list");
 		String message = "Course was successfully updated.";
 		System.out.println(message);
 		cService.changeCourse(course);
+//		mav.setViewName("forward:/admin/courses/list");
+		ArrayList<Course> cList = cService.findAllCourses();
+		mav.addObject("clist", cList);
 		return mav;
 	}
 
@@ -114,11 +116,12 @@ public class AdminCourseController {
 	public ModelAndView deleteCourse(@PathVariable String id)
 			throws CourseNotFound {
 
-		ModelAndView mav = new ModelAndView("forward:/admin/courses/list");
+		ModelAndView mav = new ModelAndView();
 		Course course = cService.findCourse(id);
 		cService.removeCourse(course);
 		String message = "The course " + course.getCourseID() + " was successfully deleted.";
 		System.out.println(message);
+		mav.setViewName("forward:/admin/courses/list");
 		return mav;
 	}
 	
@@ -171,10 +174,12 @@ public class AdminCourseController {
 		if (result.hasErrors())
 			return new ModelAndView("enroll-edit");
 
-		ModelAndView mav = new ModelAndView("forward:/admin/courses/enroll/list");
+		ModelAndView mav = new ModelAndView("enroll-list");
 		String message = "Enrolment was successfully updated.";
 		System.out.println(message);
 		eService.changeEnrolment(stu_c);
+		ArrayList<Student_Course> eList = eService.findAllEnrolment();
+		mav.addObject("elist", eList);
 		return mav;
 	}
 }

@@ -9,8 +9,6 @@ public interface StudentService {
 
 	ArrayList<Student> findAllStudents();
 	
-	ArrayList<Student_Course> findAllCoursesByStudent(Student student);
-	
 	Student findStudent(String id);
 
 	Student createStudent(Student student);
