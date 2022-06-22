@@ -61,10 +61,6 @@ public class CourseServiceImpl implements CourseService {
 	@Transactional
 	public Course changeCourse(Course course) {
 		Course ogCourse = findCourse(course.getCourseID());
-//		Set<Lecturer> lecturers = ogCourse.getLecturers();
-//		lecturers.forEach(l -> {
-//			l.removeCourse(ogCourse);
-//		});
 		ogCourse.setClassPax(course.getClassPax());
 		ogCourse.setCourseDays(course.getCourseDays());
 		ogCourse.setDescription(course.getDescription());
@@ -76,24 +72,7 @@ public class CourseServiceImpl implements CourseService {
 		ogCourse.setFee(course.getFee());
 		ogCourse.setMaxCap(course.getMaxCap());
 		ogCourse.setRoom(course.getRoom());
-		
-//		ogCourse.setClassPax(course.getClassPax());
-//		ogCourse.setCourseDays(course.getCourseDays());
-//		ogCourse.setDescription(course.getDescription());
-//		ogCourse.setLessonDay(course.getLessonDay());
-//		ogCourse.setName(course.getName());
-//		ogCourse.setStartDate(course.getStartDate());
-//		ogCourse.setCode(course.getCode());
-//		ogCourse.setCredits(course.getCredits());
-//		ogCourse.setFee(course.getFee());
-//		ogCourse.setMaxCap(course.getMaxCap());
-//		ogCourse.setRoom(course.getRoom());
-//		lecturers.forEach(l -> {
-//			l.addCourse(ogCourse);
-//			lecturerRepository.save(l);
-//		});
 		return courseRepository.saveAndFlush(ogCourse);
-
 	}
 
 	/* (non-Javadoc)

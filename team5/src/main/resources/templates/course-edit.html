@@ -13,12 +13,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<form action="#" th:action="@{/admin/courses/edit/'+course.courseID}" th:object="${course}"
+				<form action="#" th:action="@{/admin/courses/edit}" th:object="${course}"
 					method="post">
 					<h5 style="text-align:center; margin:15px;">Editing Course ID : <span
 							th:text="${course.courseID}"></span></h5>
 					<fieldset>
-						<input type="hidden" th:field="*{courseID}" />
+						<input type="hidden" th:field="*{courseID}" name="courseID" />
 					</fieldset>
 					<table class="table table-borderless">
 						<tbody>
