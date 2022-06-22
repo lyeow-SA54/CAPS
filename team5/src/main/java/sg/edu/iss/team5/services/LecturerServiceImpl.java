@@ -2,6 +2,7 @@ package sg.edu.iss.team5.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -74,10 +75,9 @@ public class LecturerServiceImpl implements LecturerService {
 	@Override
 	@Transactional
 	public void removeLecturer(Lecturer lecturer) {
-		ArrayList<Course> courses = courseRepository.findAllByLecturers(lecturer);
+		Set<Course> courses = lecturer.getTeachings();
 		courses.forEach(c -> {
 			lecturer.removeCourse(c);
-			courseRepository.save(c);
 			});
 		lecturerRepository.delete(lecturer);
 	}

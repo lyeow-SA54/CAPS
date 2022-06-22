@@ -1,28 +1,20 @@
 package sg.edu.iss.team5.model;
 
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -80,7 +72,7 @@ public class Course {
 	  private int maxCap;
 	 
 	@ManyToMany(mappedBy = "teachings") 
-	private Set<Lecturer> lecturers;
+	private Set<Lecturer> lecturers = new HashSet<Lecturer>();
 	
 	@OneToMany (fetch = FetchType.EAGER, mappedBy="courseID")
 	private Set<Student_Course> classList;

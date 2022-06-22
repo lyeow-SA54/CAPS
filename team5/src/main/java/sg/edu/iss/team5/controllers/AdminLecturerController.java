@@ -91,10 +91,12 @@ public class AdminLecturerController {
 		if (result.hasErrors())
 			return new ModelAndView("lecturer-edit");
 
-		ModelAndView mav = new ModelAndView("forward:/admin/lecturers/list");
+		ModelAndView mav = new ModelAndView("lecturer-list");
 		String message = "Lecturer was successfully updated.";
 		System.out.println(message);
 		lService.changeLecturer(lecturer);
+		ArrayList<Lecturer> lcList = lService.findAllLecturers();
+		mav.addObject("lclist", lcList);
 		return mav;
 	}
 

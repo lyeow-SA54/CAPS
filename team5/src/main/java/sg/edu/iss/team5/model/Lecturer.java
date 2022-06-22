@@ -1,5 +1,6 @@
 package sg.edu.iss.team5.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ public class Lecturer {
 	@JoinTable(name="lecturer_course",
 	joinColumns = @JoinColumn(name = "lecturer_id"),
 	inverseJoinColumns = @JoinColumn(name="course_id"))
-	private Set<Course> teachings;
+	private Set<Course> teachings = new HashSet<Course>();
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	
