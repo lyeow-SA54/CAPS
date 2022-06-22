@@ -12,13 +12,8 @@
 	<div th:if="${not #lists.isEmpty(clist)}">
 		<div class="container">
 			<div class="row">
-				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
+				<div class="col-4" style="margin-top: 15px; margin-bottom: 15px;">
 					<h4>Lecturer Course List Page</h4>
-				</div>
-				<div class="col-6"></div>
-				<div class="col-3" style="margin-top: 20px; margin-bottom: 20px; text-align:right;">
-					<h5 style="text-decoration: underline;"><a th:href="@{/admin/students/create}">Add Student</a>
-					</h5>
 				</div>
 			</div>
 			<div class="row">
@@ -37,8 +32,11 @@
 								<td align="left" th:text="${course.courseID}">Course Id</td>
 								<td align="left" th:text="${course.code}">Course Code</td>
 								<td align="left" th:text="${course.name}">Name</td>
-								<td><a th:href="${'/lecturer/courses/'+{course.courseID}+'/grade/'}"
-										class="btn btn-default"><span th:text="#{caption.selectc}"></span></a></td>
+								<td>
+									<a th:href="${'/lecturer/courses/'+{course.courseID}+'/grade/'}">
+										<span th:text="#{caption.selectc}"></span>
+									</a>
+								</td>
 							</tr>
 						</tbody>
 					</table>
