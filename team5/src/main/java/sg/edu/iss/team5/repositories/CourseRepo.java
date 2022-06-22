@@ -15,5 +15,5 @@ public interface CourseRepo extends JpaRepository<Course, String>{
 	@Query("SELECT DISTINCT c.courseID FROM Course c")
 	ArrayList<String> findAllCourseIDs();
 	
-	ArrayList<Course> findAllByLecturers(Lecturer lecturer);	
+	ArrayList<Course> findAllByLecturers(Lecturer lecturer);
 }

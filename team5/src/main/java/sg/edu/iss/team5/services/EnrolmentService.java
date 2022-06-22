@@ -20,6 +20,10 @@ public interface EnrolmentService {
 
 	ArrayList<Student_Course> findAllEnrolmentByCourse(Course course);	
 	
+	ArrayList<Student_Course> findAllEnrolmentByStudent(Student student);
+	
 	Student_Course findEnrolmentByCourseAndStudent(Course course, Student student);
+	
+	ArrayList<Course> findAvailableEnrolmentByStudent(Student student);
 
 }

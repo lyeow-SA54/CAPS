@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: headsection">
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<div th:replace="layout :: admin-menu"></div>
+	<h5>Enroll In Course</h5>
+	<div th:if="${not #lists.isEmpty(clist)}">
+		<table style="border: 1;" align="center">
+
+			<tr class="listHeading">
+				<th><span th:text="#{fieldLabel.courseID}"></span></th>
+				<th><span th:text="#{fieldLabel.classPax}"></span></th>
+				<th><span th:text="#{fieldLabel.code}"></span></th>
+				<th><span th:text="#{fieldLabel.courseDays}"></span></th>
+				<th><span th:text="#{fieldLabel.credits}"></span></th>
+				<th><span th:text="#{fieldLabel.description}"></span></th>
+				<th><span th:text="#{fieldLabel.fee}"></span></th>
+				<th><span th:text="#{fieldLabel.lessonDay}"></span></th>
+				<th><span th:text="#{fieldLabel.maxCap}"></span></th>
+				<th><span th:text="#{fieldLabel.name}"></span></th>
+				<th><span th:text="#{fieldLabel.room}"></span></th>
+				<th><span th:text="#{fieldLabel.startDate}"></span></th>
+			</tr>
+			<tr th:each="course : ${clist}" class="listRecord">
+			<form action="#" th:action="${'/student/courses/enroll/'+{course.courseID}}" th:object="${course}" method="post">
+				<td align="left" th:text="${course.courseID}"><input type="hidden" th:value="*{courseID}" name="courseID"/></td>
+				<td align="left" th:text="${course.classPax}"><input type="hidden" th:value="*{classPax}" name="classPax"/></td>
+				<td align="left" th:text="${course.code}"><input type="hidden" th:value="*{code}" name="code"/></td>
+				<td align="left" th:text="${course.courseDays}"><input type="hidden" th:value="*{courseDays}" name="courseDays"/></td>
+				<td align="left" th:text="${course.credits}"><input type="hidden" th:value="*{credits}" name="credits"/></td>
+				<td align="left" th:text="${course.description}"><input type="hidden" th:value="*{description}" name="description"/></td>
+				<td align="left" th:text="${course.fee}"><input type="hidden" th:value="*{fee}" name="fee"/></td>
+				<td align="left" th:text="${course.lessonDay}"><input type="hidden" th:value="*{lessonDay}" name="lessonDay"/></td>
+				<td align="left" th:text="${course.maxCap}"><input type="hidden" th:value="*{maxCap}" name="maxCap"/></td>
+				<td align="left" th:text="${course.name}"><input type="hidden" th:value="*{name}" name="name"/></td>
+				<td align="left" th:text="${course.room}"><input type="hidden" th:value="*{room}" name="room"/></td>
+				<td align="left" th:text="${course.startDate}"><input type="hidden" th:value="*{startDate}" name="startDate"/></td>
+				<td><input type="submit" value="Create" class="blcass"/></span></a></td>
+			</form>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

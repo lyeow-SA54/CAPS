@@ -1,6 +1,7 @@
 package sg.edu.iss.team5.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Course;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
@@ -39,6 +41,13 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		return l;
 	}
 	
+	@Override
+	@Transactional
+	public ArrayList<Student_Course> findAllEnrolmentByStudent(Student student) {
+		ArrayList<Student_Course> l = (ArrayList<Student_Course>) enrollRepository.findAllByStudentID(student);
+		return l;
+	}
+	
 	@Transactional
 	public Student_Course findEnrolment(String id) {
 		return enrollRepository.findById(id).orElse(null);
@@ -49,6 +58,29 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	public Student_Course findEnrolmentByCourseAndStudent(Course course, Student student) {
 		return enrollRepository.findByCourseIDAndStudentID(course, student);
 
+	}
+	
+	@Transactional
+	public ArrayList<Course> findAvailableEnrolmentByStudent(Student student) {
+		ArrayList<Student_Course> gradEnrollList = enrollRepository.findAllByEventTypeAndStudentID(status.GRADUATED, student);
+		ArrayList<Student_Course> progressEnrollList = enrollRepository.findAllByEventTypeAndStudentID(status.INPROGRESS, student);
+		ArrayList<Student_Course> submittedEnrollList = enrollRepository.findAllByEventTypeAndStudentID(status.SUBMITTED, student);
+		ArrayList<Student_Course> excludeEnrollList = new ArrayList<Student_Course>();
+		excludeEnrollList.addAll(gradEnrollList);
+		excludeEnrollList.addAll(progressEnrollList);
+		excludeEnrollList.addAll(submittedEnrollList);
+		Set<String> excludeCourseIDList = new HashSet<String>();
+		excludeEnrollList.forEach(sc -> excludeCourseIDList.add(sc.getCourseID().getCourseID()));
+		ArrayList<Course> courseList =  cService.findAllCourses();
+		ArrayList<Course> availcourseList =  new ArrayList<Course>();
+		courseList.forEach(c -> 
+		{
+			if (excludeCourseIDList.contains(c.getCourseID()))
+		{}
+			else
+		{availcourseList.add(c);}
+		});
+		return courseList;
 	}
 
 	/* (non-Javadoc)
@@ -67,6 +99,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		sService.changeStudent(s);
 		Set<Student_Course> clist = c.getClassList();
 		clist.add(stu_c);
+		c.setClassList(clist);
 		return enrollRepository.saveAndFlush(stu_c);
 	}
 
@@ -79,6 +112,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		Student_Course sc = findEnrolment(stu_c.getSc_ID());
 		sc.setEventType(stu_c.getEventType());
 		sc.setScore(stu_c.getScore());
+		sc.setCourseID(sc.getCourseID());
 		return enrollRepository.saveAndFlush(sc);
 	}
 

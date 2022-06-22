@@ -38,7 +38,7 @@ public class Lecturer {
 	@Column(name = "email")
 	private String email;
 	
-	@ManyToMany (cascade = CascadeType.ALL)
+	@ManyToMany 
 	@JoinTable(name="lecturer_course",
 	joinColumns = @JoinColumn(name = "lecturer_id"),
 	inverseJoinColumns = @JoinColumn(name="course_id"))
@@ -53,5 +53,11 @@ public class Lecturer {
 		Role role = new Role("LECTURER");
 		List<Role> rolelist = List.of(role);
 		this.user  = new User(id, rolelist);
+	}
+	
+	public void removeCourse(Course course)
+	{
+		this.teachings.remove(course);
+		course.getLecturers().remove(this);
 	}
 }

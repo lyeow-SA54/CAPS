@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: headsection">
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<div th:replace="layout :: admin-menu"></div>
+	<h5>Enrollment List page</h5>
+	<div th:if="${not #lists.isEmpty(elist)}">
+		<table style="border: 1;" align="center">
+
+			<tr class="listHeading">
+
+				<th><span th:text="#{fieldLabel.studentID}"></span></th>
+				<th><span th:text="#{fieldLabel.courseID}"></span></th>
+				<th><span th:text="#{fieldLabel.eventType}"></span></th>
+				<th><span th:text="#{fieldLabel.score}"></span></th>
+			</tr>
+			<tr th:each="student_course : ${elist}" class="listRecord">
+
+				<td align="left" th:text="${student_course.studentID.studentID}"></td>
+				<td align="left" th:text="${student_course.courseID.courseID}"></td>
+				<td align="left" th:text="${student_course.eventType.toString()}"></td>
+				<td align="left" th:text="${student_course.score}"></td>
+				<td><a th:href="@{/student/courses/view/}+${student_course.sc_ID}" class="btn btn-default"><span
+							th:text="#{caption.detail}"></span></a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

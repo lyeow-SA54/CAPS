@@ -55,7 +55,7 @@ public class Course {
 	
 	@Basic
 	@Column(name = "start_date")
-	  @DateTimeFormat(pattern = "dd-MM-yyyy") 
+	  @DateTimeFormat(pattern = "yyyy-MM-dd") 
 	  private LocalDate startDate; 
 	@Basic
 	@Column(name = "description")
@@ -79,10 +79,16 @@ public class Course {
 		@Column(name = "max_cap")
 	  private int maxCap;
 	 
-	@ManyToMany(mappedBy = "teachings", cascade = CascadeType.ALL) 
+	@ManyToMany(mappedBy = "teachings") 
 	private Set<Lecturer> lecturers;
 	
-	@OneToMany (fetch = FetchType.EAGER, mappedBy="courseID", cascade = CascadeType.ALL)
+	@OneToMany (fetch = FetchType.EAGER, mappedBy="courseID")
 	private Set<Student_Course> classList;
+	
+	public void removeLecturer(Lecturer lecturer)
+	{
+		this.lecturers.remove(lecturer);
+		lecturer.getTeachings().remove(this);
+	}
 	
 }

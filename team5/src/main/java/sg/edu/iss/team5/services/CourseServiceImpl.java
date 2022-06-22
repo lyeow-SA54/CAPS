@@ -9,13 +9,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.team5.model.Course;
 import sg.edu.iss.team5.model.Lecturer;
+import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.repositories.CourseRepo;
+import sg.edu.iss.team5.repositories.EnrolmentRepo;
+import sg.edu.iss.team5.repositories.LecturerRepo;
 
 @Service
 public class CourseServiceImpl implements CourseService {
 
 	@Resource
 	private CourseRepo courseRepository;
+	
+	@Resource
+	private EnrolmentRepo enrolRepository;
+	
+	@Resource
+	private LecturerRepo lecturerRepository;
 
 	@Override
 	@Transactional
@@ -50,7 +59,19 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	@Transactional
 	public Course changeCourse(Course course) {
-		return courseRepository.saveAndFlush(course);
+		Course ogCourse = findCourse(course.getCourseID());
+		ogCourse.setClassPax(course.getClassPax());
+		ogCourse.setCourseDays(course.getCourseDays());
+		ogCourse.setDescription(course.getDescription());
+		ogCourse.setLessonDay(course.getLessonDay());
+		ogCourse.setName(course.getName());
+		ogCourse.setStartDate(course.getStartDate());
+		ogCourse.setCode(course.getCode());
+		ogCourse.setCredits(course.getCredits());
+		ogCourse.setFee(course.getFee());
+		ogCourse.setMaxCap(course.getMaxCap());
+		ogCourse.setRoom(course.getRoom());
+		return courseRepository.saveAndFlush(ogCourse);
 	}
 
 	/* (non-Javadoc)
@@ -59,6 +80,16 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	@Transactional
 	public void removeCourse(Course course) {
+		ArrayList<Student_Course> enrollment = enrolRepository.findAllByCourseID(course);
+//		if (enrollment!=null)
+//		{
+//		enrollment.forEach(e -> enrolRepository.delete(e));
+//		}
+		ArrayList<Lecturer> lecturers = lecturerRepository.findAllByTeachings(course);
+		lecturers.forEach(l -> 
+		{
+			course.removeLecturer(l);
+		});
 		courseRepository.delete(course);
 	}
 

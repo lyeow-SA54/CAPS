@@ -13,6 +13,7 @@ import sg.edu.iss.team5.model.Role;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.model.User;
+import sg.edu.iss.team5.repositories.EnrolmentRepo;
 import sg.edu.iss.team5.repositories.RoleRepo;
 import sg.edu.iss.team5.repositories.StudentRepo;
 import sg.edu.iss.team5.repositories.UserRepo;
@@ -36,17 +37,9 @@ public class StudentServiceImpl implements StudentService {
 		return l;
 	}
 	
-	@Override
-	@Transactional
-	public ArrayList<Student_Course> findAllCoursesByStudent(Student student) {
-		ArrayList<Student_Course> l = (ArrayList<Student_Course>) studentRepository.findAllBystudentID(student);
-		return l;
-	}
-	
 	@Transactional
 	public Student findStudent(String id) {
 		return studentRepository.findById(id).orElse(null);
-
 	}
 
 	/* (non-Javadoc)
@@ -56,10 +49,9 @@ public class StudentServiceImpl implements StudentService {
 	@Transactional
 	public Student createStudent(Student student) {
 		Role role = new Role("STUDENT");
+		roleRepository.saveAndFlush(role);
 		List<Role> rolelist = List.of(role);
 		User user  = new User(student.getStudentID(), rolelist);
-		userRepository.saveAndFlush(user);
-		roleRepository.saveAndFlush(role);
 		student.setUser(user);
 		return studentRepository.saveAndFlush(student);
 	}
@@ -70,7 +62,10 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	@Transactional
 	public Student changeStudent(Student student) {
-		return studentRepository.saveAndFlush(student);
+		Student stud = findStudent(student.getStudentID());
+		stud.setEmail(student.getEmail());
+		stud.setName(student.getName());
+		return studentRepository.saveAndFlush(stud);
 	}
 
 	/* (non-Javadoc)

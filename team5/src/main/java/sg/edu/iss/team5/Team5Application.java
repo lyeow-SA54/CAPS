@@ -1,6 +1,7 @@
 package sg.edu.iss.team5;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.BeanDefinitionDsl.Role;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Admin;
@@ -19,6 +20,7 @@ import sg.edu.iss.team5.model.Lecturer;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.model.User;
+import sg.edu.iss.team5.model.Role;
 import sg.edu.iss.team5.repositories.AdminRepo;
 import sg.edu.iss.team5.repositories.CourseRepo;
 import sg.edu.iss.team5.repositories.EnrolmentRepo;
@@ -67,11 +69,11 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		Course c2 = new Course();
 		c2.setCourseID("C22345");
 		cr.save(c2);
-		Student_Course sc1 = new Student_Course(s1, c1, 0, status.GRADUATED);
-		sc1.setSc_ID("SC12345");
-		Set<Student_Course> sclist = Set.of(sc1);
-		s1.setStudyList(sclist);
-		c1.setClassList(sclist);
+//		Student_Course sc1 = new Student_Course(s1, c1, 0, status.WITHDRAWN);
+//		sc1.setSc_ID("SC12345");
+//		Set<Student_Course> sclist = Set.of(sc1);
+//		s1.setStudyList(sclist);
+//		c1.setClassList(sclist);
 		sr.save(s1);
 		Lecturer l1 = new Lecturer("L12345");
 		Set<Course> courselist = new HashSet<Course>();
@@ -79,6 +81,14 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		courselist.add(c2);
 		l1.setTeachings(courselist);
 		lcr.save(l1);
+		
+		Role role = new Role("ADMIN");
+		List<Role> rolelist = List.of(role);
+		User user  = new User();
+		user.setRoles(rolelist);
+		user.setUsername("A1");
+		user.setPassword(new BCryptPasswordEncoder().encode("1"));
+		ur.saveAndFlush(user);
     }
 
 }
