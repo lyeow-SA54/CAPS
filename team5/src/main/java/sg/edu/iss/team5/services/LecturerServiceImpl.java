@@ -75,11 +75,14 @@ public class LecturerServiceImpl implements LecturerService {
 	@Override
 	@Transactional
 	public void removeLecturer(Lecturer lecturer) {
-		Set<Course> courses = lecturer.getTeachings();
-		courses.forEach(c -> {
-			lecturer.removeCourse(c);
-			});
-		lecturerRepository.delete(lecturer);
+	Set<Course> courses = lecturer.getTeachings();
+	for(Course c : courses) {
+	c.getLecturers().remove(lecturer);
+	courseRepository.save(c);
+	};
+	lecturer.getTeachings().clear();
+	lecturerRepository.delete(lecturer);
+	lecturerRepository.flush();
 	}
 
 }

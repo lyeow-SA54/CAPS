@@ -67,5 +67,6 @@ public class Student_Course {
 		studentID = student;
 		courseID = course;
 		eventType = event;
+		score=0;
 	}
 }

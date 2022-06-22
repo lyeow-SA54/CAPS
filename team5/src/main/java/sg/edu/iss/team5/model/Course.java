@@ -72,7 +72,7 @@ public class Course {
 	  private int maxCap;
 	 
 	@ManyToMany(mappedBy = "teachings") 
-	private Set<Lecturer> lecturers = new HashSet<Lecturer>();
+	private Set<Lecturer> lecturers;
 	
 	@OneToMany (fetch = FetchType.EAGER, mappedBy="courseID")
 	private Set<Student_Course> classList;

@@ -69,11 +69,11 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		Course c2 = new Course();
 		c2.setCourseID("C22345");
 		cr.save(c2);
-//		Student_Course sc1 = new Student_Course(s1, c1, 0, status.WITHDRAWN);
-//		sc1.setSc_ID("SC12345");
-//		Set<Student_Course> sclist = Set.of(sc1);
-//		s1.setStudyList(sclist);
-//		c1.setClassList(sclist);
+		Student_Course sc1 = new Student_Course(s1, c1, 0, status.WITHDRAWN);
+		sc1.setSc_ID("SC12345");
+		Set<Student_Course> sclist = Set.of(sc1);
+		s1.setStudyList(sclist);
+		c1.setClassList(sclist);
 		sr.save(s1);
 		Lecturer l1 = new Lecturer("L12345");
 		Set<Course> courselist = new HashSet<Course>();
@@ -90,5 +90,4 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		user.setPassword(new BCryptPasswordEncoder().encode("1"));
 		ur.saveAndFlush(user);
     }
-
 }

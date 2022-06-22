@@ -14,6 +14,7 @@ import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.repositories.CourseRepo;
 import sg.edu.iss.team5.repositories.EnrolmentRepo;
 import sg.edu.iss.team5.repositories.LecturerRepo;
+import sg.edu.iss.team5.repositories.StudentRepo;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -22,10 +23,13 @@ public class CourseServiceImpl implements CourseService {
 	private CourseRepo courseRepository;
 	
 	@Resource
-	private EnrolmentRepo enrolRepository;
+	private EnrolmentRepo enrollRepository;
 	
 	@Resource
 	private LecturerRepo lecturerRepository;
+	
+	@Resource
+	private StudentRepo studentRepository;
 
 	@Override
 	@Transactional
@@ -81,17 +85,20 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	@Transactional
 	public void removeCourse(Course course) {
-		ArrayList<Student_Course> enrollment = enrolRepository.findAllByCourseID(course);
-//		if (enrollment!=null)
-//		{
-//		enrollment.forEach(e -> enrolRepository.delete(e));
-//		}
-		ArrayList<Lecturer> lecturers = lecturerRepository.findAllByTeachings(course);
-		lecturers.forEach(l -> 
-		{
-			course.removeLecturer(l);
-		});
+		ArrayList<Student_Course> enrollment = enrollRepository.findAllByCourseID(course);
+		for(Student_Course e : enrollment) {
+		e.getStudentID().getStudyList().remove(e);
+		studentRepository.save(e.getStudentID());
+		};
+		
+		Set<Lecturer> lecturers = course.getLecturers();
+		for(Lecturer l : lecturers) {
+		l.getTeachings().remove(course);
+		lecturerRepository.save(l);
+		};
+		course.getLecturers().clear();
 		courseRepository.delete(course);
+		courseRepository.flush();
 	}
 
 }

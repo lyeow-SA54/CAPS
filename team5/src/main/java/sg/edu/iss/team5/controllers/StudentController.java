@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.team5.helper.status;
@@ -79,21 +80,20 @@ public class StudentController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/courses/enroll/{cid}", method = RequestMethod.POST)
-	public ModelAndView createNewCourseEnroll(@ModelAttribute @Valid Course course, BindingResult result) {
-
-		if (result.hasErrors())
-			return new ModelAndView("student-enroll-new");
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		ModelAndView mav = new ModelAndView("student-enroll-new");
-		Student student = sService.findStudent(username);
-		Student_Course enrolment = new Student_Course(student, course, status.SUBMITTED);
-		eService.createEnrolment(enrolment);
-		ArrayList<Course>cList = eService.findAvailableEnrolmentByStudent(student);
-		mav.addObject("clist", cList);
-		mav.setViewName("forward:/student/courses/enroll/list");
-		return mav;		
-	}
+	@RequestMapping(value = "/courses/enroll", method = RequestMethod.POST)
+    public ModelAndView createNewCourseEnroll(@ModelAttribute @Valid Course course, BindingResult result) {
+        if (result.hasErrors())
+            return new ModelAndView("student-enroll-new");
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        ModelAndView mav = new ModelAndView("student-enroll-new");
+        Student student = sService.findStudent(username);
+        Student_Course enrolment = new Student_Course(student, course, status.SUBMITTED);
+        eService.createEnrolment(enrolment);
+        ArrayList<Course>cList = eService.findAvailableEnrolmentByStudent(student);
+        mav.addObject("clist", cList);
+        mav.setViewName("forward:/student/courses/enroll/list");
+        return mav;     
+    }
 }
 	
 

@@ -4,27 +4,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-
 import javax.persistence.OneToOne;
-import javax.persistence.CascadeType;
-
-import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
 @Table(name="lecturer")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 
 public class Lecturer {
@@ -43,7 +42,7 @@ public class Lecturer {
 	@JoinTable(name="lecturer_course",
 	joinColumns = @JoinColumn(name = "lecturer_id"),
 	inverseJoinColumns = @JoinColumn(name="course_id"))
-	private Set<Course> teachings = new HashSet<Course>();
+	private Set<Course> teachings;
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	
