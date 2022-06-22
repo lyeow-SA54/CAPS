@@ -9,29 +9,51 @@
 
 <body>
 	<div th:replace="layout :: admin-menu"></div>
-	<h5>Lecturer List page</h5>
-	<h5>
-		<a th:href="@{/admin/lecturers/create}">Add Lecturer</a>
-	</h5>
 	<div th:if="${not #lists.isEmpty(lclist)}">
-		<table style="border: 1;" align="center">
-
-			<tr class="listHeading">
-				<th><span th:text="#{fieldLabel.lecturerID}"></span></th>
-				<th><span th:text="#{fieldLabel.email}"></span></th>
-				<th><span th:text="#{fieldLabel.name}"></span></th>
-			</tr>
-			<tr th:each="lecturer : ${lclist}" class="listRecord">
-				<td align="left" th:text="${lecturer.lecturerID}">Lecturer Id</td>
-				<td align="left" th:text="${lecturer.email}">Lecturer Id</td>
-				<td align="left" th:text="${lecturer.name}">Name</td>
-
-				<td><a th:href="@{/admin/lecturers/edit/}+${lecturer.lecturerID}" class="btn btn-default"><span
-							th:text="#{caption.edit}"></span></a></td>
-				<td><a th:href="@{/admin/lecturers/delete/}+${lecturer.lecturerID}" class="btn btn-default"><span
-							th:text="#{caption.delete}"></span></a></td>
-			</tr>
-		</table>
+		<div class="container">
+			<div class="row">
+				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
+					<h4>Lecturer Lists</h4>
+				</div>
+				<div class="col-6"></div>
+				<div class="col-3" style="margin-top: 20px; margin-bottom: 20px; text-align:right;">
+					<h5 style="text-decoration: underline;"><a th:href="@{/admin/lecturers/create}">Add Lecturer</a>
+					</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped">
+						<thead>
+							<tr class="listHeading">
+								<th><span th:text="#{fieldLabel.lecturerID}"></span></th>
+								<th><span th:text="#{fieldLabel.email}"></span></th>
+								<th><span th:text="#{fieldLabel.name}"></span></th>
+								<th><span th:text="#{caption.edit}"></span></th>
+								<th><span th:text="#{caption.delete}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="lecturer : ${lclist}" class="listRecord">
+								<td align="left" th:text="${lecturer.lecturerID}">Lecturer Id</td>
+								<td align="left" th:text="${lecturer.email}">Lecturer Id</td>
+								<td align="left" th:text="${lecturer.name}">Name</td>
+								<td>
+									<a th:href="@{/admin/lecturers/edit/}+${lecturer.lecturerID}">
+										<span th:text="#{caption.edit}"></span>
+									</a>
+								</td>
+								<td>
+									<a th:href="@{/admin/lecturers/delete/}+${lecturer.lecturerID}">
+										<span th:text="#{caption.delete}"></span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 
