@@ -28,7 +28,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 		authorities.forEach(authority -> {
 			if(authority.getAuthority().equals("ADMIN")) {
 				try {
-					redirectStrategy.sendRedirect(arg0, arg1, "/admin/courses/list");
+					redirectStrategy.sendRedirect(arg0, arg1, "/admin");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

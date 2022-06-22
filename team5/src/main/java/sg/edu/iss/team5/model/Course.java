@@ -91,4 +91,10 @@ public class Course {
 		lecturer.getTeachings().remove(this);
 	}
 	
+	public void addLecturer(Lecturer lecturer)
+	{
+		this.lecturers.add(lecturer);
+		lecturer.getTeachings().add(this);
+	}
+	
 }

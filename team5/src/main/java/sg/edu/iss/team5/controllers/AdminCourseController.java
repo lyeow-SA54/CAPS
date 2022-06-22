@@ -96,17 +96,19 @@ public class AdminCourseController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView editEmployee(@ModelAttribute @Valid Course course, BindingResult result,
-			@PathVariable String id) throws CourseNotFound {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView editEmployee(@ModelAttribute @Valid Course course, BindingResult result) throws CourseNotFound {
 
 		if (result.hasErrors())
 			return new ModelAndView("course-edit");
 
-		ModelAndView mav = new ModelAndView("forward:/admin/courses/list");
+		ModelAndView mav = new ModelAndView("course-list");
 		String message = "Course was successfully updated.";
 		System.out.println(message);
 		cService.changeCourse(course);
+//		mav.setViewName("forward:/admin/courses/list");
+		ArrayList<Course> cList = cService.findAllCourses();
+		mav.addObject("clist", cList);
 		return mav;
 	}
 

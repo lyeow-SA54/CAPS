@@ -60,4 +60,10 @@ public class Lecturer {
 		this.teachings.remove(course);
 		course.getLecturers().remove(this);
 	}
+	
+	public void addCourse(Course course)
+	{
+		this.teachings.add(course);
+		course.getLecturers().add(this);
+	}
 }

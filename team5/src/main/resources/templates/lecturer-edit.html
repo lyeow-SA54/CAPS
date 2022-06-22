@@ -11,7 +11,7 @@
 <body>
 	<div th:replace="layout :: admin-menu"></div>
 	<h5>Edit Course page</h5>
-	<form action="#" th:action="@{/admin/lecturers/edit/'+lecturer.lecturerID}" th:object="${lecturer}" method="post">
+	<form action="#" th:action="@{/admin/lecturers/edit/}" th:object="${lecturer}" method="post">
 		<table align="center">
 			<tbody>
 				<tr>

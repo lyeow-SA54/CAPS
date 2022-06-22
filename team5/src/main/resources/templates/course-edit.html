@@ -11,18 +11,18 @@
 <body>
 	<div th:replace="layout :: admin-menu"></div>
 
-	<form action="#" th:action="@{/admin/courses/edit/'+course.courseID}" th:object="${course}" method="post">
+	<form action="#" th:action="@{/admin/courses/edit}" th:object="${course}" method="post">
 		<h5>Course ID : <span th:text="${course.courseID}">
 			</span></h5>
 		<table align="center">
 			<tbody>
-				<!--<tr>
+				<tr>
 					<td><span th:text="#{fieldLabel.courseID}"></span></td>
 					<td>
 						<fieldset><input type="text" th:field="*{courseID}" readonly="readonly" /></fieldset>
 					</td>
 					<td th:if="${#fields.hasErrors('courseID')}" th:errors="*{courseID}"></td>
-				</tr>-->
+				</tr>
 				<tr>
 					<td><span th:text="#{fieldLabel.classPax}"></span></td>
 					<td>
