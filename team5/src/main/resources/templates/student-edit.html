@@ -10,41 +10,61 @@
 
 <body>
 	<div th:replace="layout :: admin-menu"></div>
-	<h5>Edit Student page</h5>
-	<form action="#" th:action="@{/admin/students/edit/'+student.studentID}" th:object="${student}" method="post">
-		<table align="center">
-			<tbody>
-				<tr>
-					<td><span th:text="#{fieldLabel.studentID}"></span></td>
-					<td>
-						<fieldset><input type="text" th:field="*{studentID}" readonly="readonly" /></fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('studentID')}" th:errors="*{studentID}"></td>
-				</tr>
-				<tr>
-					<td><span th:text="#{fieldLabel.email}"></span></td>
-					<td>
-						<fieldset><input type="text" th:field="*{email}" /></fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
-				</tr>
-				<tr>
-					<td><span th:text="#{fieldLabel.name}"></span></td>
-					<td>
-						<fieldset><input type="text" th:field="*{name}" /></fieldset>
-					</td>
-					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
-				</tr>
-				<tr>
-					<td><a th:href="@{/admin/students/list}">Back</a></td>
-					<td colspan="2">
-						<fieldset><input type="submit" value="Update" class="blcass" /></fieldset>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</form>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<form action="#" th:action="@{/admin/students/edit/'+student.studentID}" th:object="${student}"
+					method="post">					
+					<fieldset>
+						<input type="hidden" th:field="*{studentID}" />
+					</fieldset>
+					<fieldset>
+						<input type="hidden" th:field="*{startDate}" />
+					</fieldset>
+					<fieldset>
+						<input type="hidden" th:field="*{eventType}" />
+					</fieldset>
+					<fieldset>
+						<input type="hidden" th:field="*{gpa}" />
+					</fieldset>
+					<h5 style="text-align:center;">Editing Student ID : <span
+							th:text="${student.studentID}"></span></h5>
+					<table class="table table-borderless">
+						<tbody>
+							<tr>
+								<td><span th:text="#{fieldLabel.email}"></span></td>
+								<td>
+									<fieldset><input type="text" th:field="*{email}" /></fieldset>
+								</td>
+								<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+							</tr>
+							<tr>
+								<td><span th:text="#{fieldLabel.name}"></span></td>
+								<td>
+									<fieldset><input type="text" th:field="*{name}" /></fieldset>
+								</td>
+								<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+							</tr>
+							<tr>
+								<td>
+									<div style="padding-top:15px;">
+										<a th:href="@{/admin/students/list}">Back</a>
+									</div>
+								</td>
+								<td>
+									<fieldset>
+										<input type="submit" value="Update" class="btn btn-primary" />
+									</fieldset>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
 </body>
 
 </html>
