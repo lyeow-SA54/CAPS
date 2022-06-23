@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: headsection">
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<div th:replace="lecturer-layout :: lecturer-menu"></div>
+	
+	<div th:if="${#lists.isEmpty(slist)}">
+		<div class="container">
+			<div class="row">
+				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
+					<h4>Student Lists</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:if="${not #lists.isEmpty(slist)}">
+		<div class="container">
+			<div class="row">
+				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
+					<h4>Student Lists</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped">
+						<thead>
+							<tr class="listHeading">
+								<th><span th:text="#{fieldLabel.studentID}"></span></th>
+								<th><span th:text="#{fieldLabel.name}"></span></th>
+								<th><span th:text="#{fieldLabel.email}"></span></th>
+								<th><span th:text="#{fieldLabel.gpa}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="student : ${slist}" class="listRecord">
+								<td align="left" th:text="${student.studentID}">Course Id</td>
+								<td align="left" th:text="${student.name}">Course Id</td>
+								<td align="left" th:text="${student.email}">Name</td>
+								<td align="left" th:text="${student.gpa}">Name</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

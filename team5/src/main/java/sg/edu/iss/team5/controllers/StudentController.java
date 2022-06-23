@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,8 +42,35 @@ public class StudentController<T> {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Student s = sService.findStudent(username);
 		ArrayList<Student_Course>eList = eService.findAllEnrolmentByStudent(s);
-		mav.addObject("elist", eList);
 		
+		mav.addObject("elist", eList);
+		Double avgScore = eList.stream()
+				.mapToDouble(x->x.getScore())
+				.average().getAsDouble();
+		if (avgScore >= 93 && avgScore <= 100) {
+			s.setGpa(5.0);
+		} else if (avgScore >= 90 && avgScore <= 92) {
+			s.setGpa(4.7);
+		} else if (avgScore >= 87 && avgScore <= 89) {
+			s.setGpa(4.3);
+		} else if (avgScore >= 83 && avgScore <= 86) {
+			s.setGpa(4.0);
+		} else if (avgScore >= 80 && avgScore <= 82) {
+			s.setGpa(3.7);
+		} else if (avgScore >= 77 && avgScore <= 79) {
+			s.setGpa(3.3);
+		} else if (avgScore >= 73 && avgScore <= 76) {
+			s.setGpa(3.0);
+		} else if (avgScore >= 70 && avgScore <= 72) {
+			s.setGpa(2.7);
+		} else if (avgScore >= 67 && avgScore <= 69) {
+			s.setGpa(2.3);
+		} else if (avgScore >= 65 && avgScore <= 66) {
+			s.setGpa(2.0);
+		} else {
+			s.setGpa(0.0);
+		}
+		mav.addObject("student", s);
 		return mav;		
 	}
 	

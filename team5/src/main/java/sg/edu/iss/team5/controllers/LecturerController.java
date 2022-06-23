@@ -1,6 +1,7 @@
 package sg.edu.iss.team5.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -105,7 +106,6 @@ public class LecturerController {
 
 		eService.changeEnrolment(sc);
 
-		System.out.println(5);
 		if (sc.getScore() >= 93 && sc.getScore() <= 100) {
 			s.setGpa(5.0);
 		} else if (sc.getScore() >= 90 && sc.getScore() <= 92) {
@@ -129,7 +129,6 @@ public class LecturerController {
 		} else {
 			s.setGpa(0.0);
 		}
-		System.out.println(6);
 		sService.changeStudent(s);
 
 		}
@@ -138,7 +137,6 @@ public class LecturerController {
 			model.addAttribute("error", e.getMessage());
 		}
 
-		System.out.println(7);
 		mav = new ModelAndView("redirect:/lecturer/courses/" + cid);
 
 		return mav;
@@ -190,5 +188,27 @@ public class LecturerController {
 		System.out.println(message);
 		return mav;
 	}
+	
+	@RequestMapping(value = "/students/list", method = RequestMethod.GET)
+	public ModelAndView lecturerStudentList() {
+	
+		ModelAndView mav = new ModelAndView("lecturer-student-list");
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Lecturer lc = lService.findLecturer(username);
+		Set<Course> courseList = lc.getTeachings();
+		Set<Student_Course> classList = new HashSet<Student_Course>();
+		Set<Student> studentList = new HashSet<Student>();
+		for (Course c : courseList)
+		{
+			classList = c.getClassList();
+			
+			for(Student_Course sc : classList)
+			{
+				studentList.add(sc.getStudentID());
+			}
+		}
+		mav.addObject("slist", studentList);
+		return mav;
+		}
 
 }
