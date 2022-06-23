@@ -9,12 +9,14 @@
 
 <body>
 	<div th:replace="layout :: admin-menu"></div>
+	
 	<div th:if="${#lists.isEmpty(slist)}">
 		<div class="container">
 			<div class="row">
 				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
 					<h4>Student Lists</h4>
 				</div>
+
 			</div>
 			<div class="row" style="margin-top:100px;">
 				<div class="col" align="center">
@@ -25,12 +27,13 @@
 				<div class="col" style="text-align:center;">
 					<h4>There are no students yet.</h4>
 					<h5 style="text-decoration: underline;">
-						<a th:href="@{/admin/students/create}">Add New Student</a>
+						<a th:href="@{/admin/courses/create}">Add New Student</a>
 					</h5>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<div th:if="${not #lists.isEmpty(slist)}">
 		<div class="container">
 			<div class="row">
