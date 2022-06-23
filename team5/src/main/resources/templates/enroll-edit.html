@@ -14,13 +14,13 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
-				<form action="#" th:action="@{/admin/courses/enroll/edit/'+stu_c.sc_ID}" th:object="${stu_c}"
+				<form action="#" th:action="@{/admin/courses/enroll/edit}" th:object="${stu_c}"
 					method="post">
 					
 					<h5 style="text-align:center; margin:15px;">Editing Enrollment ID : <span
 							th:text="${stu_c.sc_ID}"></span></h5>
 					<fieldset>
-						<input type="hidden" th:field="*{sc_ID}" />
+						<input type="hidden" th:field="*{sc_ID}" id="sc_ID" />
 					</fieldset>
 					<table class="table table-borderless">
 						<tbody>
@@ -28,10 +28,10 @@
 								<td><span th:text="#{fieldLabel.studentID}"></span></td>
 								<td>
 									<fieldset>
-										<input type="text" th:field="*{studentID}" readonly="readonly" />
+										<input type="text" th:field="*{studentID.studentID}" readonly="readonly" />
 									</fieldset>
 								</td>
-								<td th:if="${#fields.hasErrors('studentID')}" th:errors="*{studentID}"></td>
+								<td th:if="${#fields.hasErrors('studentID.studentID')}" th:errors="*{studentID.studentID}"></td>
 							</tr>
 							<tr>
 								<td><span th:text="#{fieldLabel.courseID}"></span></td>
@@ -40,7 +40,7 @@
 										<input type="text" th:field="*{courseID.courseID}" readonly="readonly" />
 									</fieldset>
 								</td>
-								<td th:if="${#fields.hasErrors('courseID')}" th:errors="*{courseID}"></td>
+								<td th:if="${#fields.hasErrors('courseID.courseID')}" th:errors="*{courseID.courseID}"></td>
 							</tr>
 							<tr>
 								<td><span th:text="#{fieldLabel.eventType}"></span></td>

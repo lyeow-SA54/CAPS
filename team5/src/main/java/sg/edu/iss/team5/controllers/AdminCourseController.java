@@ -185,9 +185,8 @@ public class AdminCourseController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/enroll/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView editEnrolment(@ModelAttribute @Valid Student_Course stu_c, BindingResult result,
-			@PathVariable String id) throws EnrolmentNotFound {
+	@RequestMapping(value = "/enroll/edit", method = RequestMethod.POST)
+	public ModelAndView editEnrolment(@ModelAttribute @Valid Student_Course stu_c, BindingResult result) throws EnrolmentNotFound {
 
 		if (result.hasErrors())
 			return new ModelAndView("enroll-edit");

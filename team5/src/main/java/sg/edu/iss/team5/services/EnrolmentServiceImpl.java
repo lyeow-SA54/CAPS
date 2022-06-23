@@ -111,7 +111,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	public Student_Course changeEnrolment(Student_Course stu_c) {
 		Student_Course sc = findEnrolment(stu_c.getSc_ID());
 		sc.setEventType(stu_c.getEventType());
-
+		sc.setScore(stu_c.getScore());
 		return enrollRepository.saveAndFlush(sc);
 	}
 
