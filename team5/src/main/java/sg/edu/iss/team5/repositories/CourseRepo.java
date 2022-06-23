@@ -16,4 +16,6 @@ public interface CourseRepo extends JpaRepository<Course, String>{
 	ArrayList<String> findAllCourseIDs();
 	
 	ArrayList<Course> findAllByLecturers(Lecturer lecturer);
+	
+	
 }
