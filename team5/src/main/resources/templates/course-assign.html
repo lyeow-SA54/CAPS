@@ -79,13 +79,12 @@
 
 							<tr>
 								<td>
-									<div style="padding-top:15px;">
-										<span th:text="#{fieldLabel.lecturersList}"></span>
-									</div>
+									<span th:text="#{fieldLabel.lecturersList}"></span>
 								</td>
 								<td colspan="2">
 									<fieldset>
-										<select class="form-control" style="width:155px;" path="lecturerID" th:field="${l.lecturerID}">
+										<select class="form-control" style="width:155px;" path="lecturerID"
+											th:field="${l.lecturerID}">
 											<option value="">Select Lecturer</option>
 											<option th:each="lecturer: ${lecturer}" th:value="${lecturer.lecturerID}"
 												th:utext="${lecturer.name}">
@@ -98,7 +97,7 @@
 							</tr>
 
 							<div th:if="${not #lists.isEmpty(lecturers)}"></div>
-							
+
 							<tr>
 								<td>
 									<div style="padding-top:15px;">
@@ -106,7 +105,7 @@
 									</div>
 								</td>
 								<td>
-									<fieldset><input type="submit" value="Assign" class="btn btn-primary"/></fieldset>
+									<fieldset><input type="submit" value="Assign" class="btn btn-primary" /></fieldset>
 								</td>
 							</tr>
 						</tbody>
