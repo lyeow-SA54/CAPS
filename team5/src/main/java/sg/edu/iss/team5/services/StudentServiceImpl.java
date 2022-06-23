@@ -77,5 +77,11 @@ public class StudentServiceImpl implements StudentService {
 		studentRepository.delete(student);
 		studentRepository.flush();
 	}
+	@Override
+	@Transactional
+	public ArrayList<Student> findPendingCoursesByStudent(String sid)
+	{
+		return studentRepository.findPendingCoursesBySID(sid);
+	}
 
 }

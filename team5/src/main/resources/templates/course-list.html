@@ -37,6 +37,7 @@
 								<th><span th:text="#{fieldLabel.name}"></span></th>
 								<th><span th:text="#{fieldLabel.room}"></span></th>
 								<th><span th:text="#{fieldLabel.startDate}"></span></th>
+								<th><span th:text="#{caption.Teach}"></span></th>
 								<th><span th:text="#{caption.edit}"></span></th>
 								<th><span th:text="#{caption.delete}"></span></th>
 							</tr>
@@ -55,6 +56,9 @@
 								<td align="left" th:text="${course.name}"></td>
 								<td align="left" th:text="${course.room}"></td>
 								<td align="left" th:text="${course.startDate}"></td>
+
+								<td> <a th:href="@{/admin/courses/assign/}+${course.courseID}"><span
+											th:text="#{caption.assign}"></span></a></td>
 								<td>
 									<a th:href="@{/admin/courses/edit/}+${course.courseID}">
 										<span th:text="#{caption.edit}"></span>

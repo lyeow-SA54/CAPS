@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,20 +17,25 @@ import sg.edu.iss.team5.repositories.EnrolmentRepo;
 import sg.edu.iss.team5.repositories.LecturerRepo;
 import sg.edu.iss.team5.repositories.StudentRepo;
 
+
 @Service
 public class CourseServiceImpl implements CourseService {
 
 	@Resource
 	private CourseRepo courseRepository;
+
 	
 	@Resource
 	private EnrolmentRepo enrollRepository;
 	
 	@Resource
-	private LecturerRepo lecturerRepository;
-	
-	@Resource
 	private StudentRepo studentRepository;
+
+	@Resource
+	private LecturerRepo lecturerRepository;
+	@Autowired
+	private LecturerService lService;
+
 
 	@Override
 	@Transactional
@@ -100,5 +106,40 @@ public class CourseServiceImpl implements CourseService {
 		courseRepository.delete(course);
 		courseRepository.flush();
 	}
+	@Override
+	@Transactional
+	public Course assignCourseToLecturer(String courseId, String lecturerId) {
+		// TODO Auto-generated method stub	
+		
+		
+		Lecturer lecturer = lService.findLecturer(lecturerId);
+		Course course = this.findCourse(courseId);
+		
+		Set<Course> teachList =  lecturer.getTeachings();
+		teachList.add(course);
+		lecturer.setTeachings(teachList);
+		
+		lService.changeLecturer(lecturer);	
+		course.getLecturers().add(lecturer);
+		return courseRepository.saveAndFlush(course);
+	}
+	
+	@Override
+	@Transactional
+	public Course removeLectureFromCourse(String courseId, String lecturerId) {
+		// TODO Auto-generated method stub	
+		
+		
+		Lecturer lecturer = lService.findLecturer(lecturerId);
+		Course course = this.findCourse(courseId);
+		
+		Set<Course> teachList =  lecturer.getTeachings();
+		teachList.remove(course);
+			
+		lService.changeLecturer(lecturer);	
+		course.getLecturers().remove(lecturer);
+		return courseRepository.saveAndFlush(course);
+	}
+	
 
 }
