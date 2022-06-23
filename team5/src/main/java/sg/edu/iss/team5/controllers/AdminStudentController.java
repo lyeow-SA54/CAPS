@@ -1,6 +1,7 @@
 package sg.edu.iss.team5.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,7 +20,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.team5.exception.StudentNotFound;
+import sg.edu.iss.team5.model.Course;
 import sg.edu.iss.team5.model.Student;
+import sg.edu.iss.team5.model.Student_Course;
+import sg.edu.iss.team5.services.StudentService;
+import sg.edu.iss.team5.services.CourseService;
+import sg.edu.iss.team5.services.EnrolmentService;
 import sg.edu.iss.team5.services.StudentService;
 
 
@@ -31,6 +37,12 @@ public class AdminStudentController {
 	@Autowired
 	private StudentService sService;
 //	
+
+	@Autowired
+	private CourseService cService;
+	
+	@Autowired
+	private EnrolmentService eService;
 //	@Autowired
 //	private UserValidator uValidator;
 //
@@ -73,6 +85,25 @@ public class AdminStudentController {
 		ArrayList<Student> sList = sService.findAllStudents();
 		mav.addObject("slist", sList);
 		return mav;
+	}
+	@RequestMapping(value = "/list/pending")
+	public ModelAndView pendingApprovals() {
+		//UserSession usession = (UserSession) session.getAttribute("usession");
+		HashMap<Course, ArrayList<Student>> hm = new HashMap<Course, ArrayList<Student>>();
+		//System.out.println(usession.toString());
+		ModelAndView mav = new ModelAndView("pending-course-history");
+		//if (usession.getUser() != null) {
+		ArrayList<Student_Course> sc = eService.findAllEnrolment();
+		
+		for (int i = 0; i<sc.size(); i++)
+		{
+			ArrayList<Student> slist = sService.findPendingCoursesByStudent(sc.get(i).getStudentID().getStudentID());
+			hm.put(sc.get(i).getCourseID(), slist);
+		}
+		mav.addObject("sList", sc);
+		mav.addObject("pendinghistory", hm);
+		return mav;
+		
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

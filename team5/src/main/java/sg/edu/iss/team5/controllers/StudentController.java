@@ -45,6 +45,7 @@ public class StudentController {
 		Student s = sService.findStudent(username);
 		ArrayList<Student_Course>eList = eService.findAllEnrolmentByStudent(s);
 		mav.addObject("elist", eList);
+		
 		return mav;		
 	}
 	
@@ -56,6 +57,8 @@ public class StudentController {
 //		Student student = sService.findStudent(username);
 //		Course course = cService.findCourse(cid);
 		Student_Course enrolment = eService.findEnrolment(scid);
+		Student student = sService.findStudent(scid);
+		mav.addObject("student",student);
 		mav.addObject("enrolment", enrolment);
 		return mav;	
 	}
@@ -76,7 +79,15 @@ public class StudentController {
 		ModelAndView mav = new ModelAndView("student-enroll-new");
 		Student student = sService.findStudent(username);
 		ArrayList<Course>cList = eService.findAvailableEnrolmentByStudent(student);
+		
+		ArrayList<Course> List = cService.findAllCourses();
+		for (Course c : List) {
+			ArrayList<Student_Course> classList = eService.findAllEnrolmentByCourse(c);
+			c.setClassPax(classList.size());
+		}
+		
 		mav.addObject("clist", cList);
+				
 		return mav;
 	}
 	

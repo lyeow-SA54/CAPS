@@ -82,6 +82,7 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		l1.setTeachings(courselist);
 		lcr.save(l1);
 		
+
 		Role role = new Role("ADMIN");
 		List<Role> rolelist = List.of(role);
 		User user  = new User();
@@ -89,5 +90,6 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		user.setUsername("A1");
 		user.setPassword(new BCryptPasswordEncoder().encode("1"));
 		ur.saveAndFlush(user);
+
     }
 }

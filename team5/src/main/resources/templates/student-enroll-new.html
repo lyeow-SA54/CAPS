@@ -10,6 +10,10 @@
 <body>
 	<div th:replace="layout :: admin-menu"></div>
 	<h5>Enroll In Course</h5>
+	<div >
+		<a th:href="@{/student/courses/list}" th:utext="#{menu.ViewEnrolledCourses}">View Enrolled Courses</a>
+		<a th:href="@{/student/courses/enroll}" th:utext="#{menu.CourseEnrolment}">Courses available for enrolment</a>
+	</div>
 	<div th:if="${not #lists.isEmpty(clist)}">
 		<table style="border: 1;" align="center">
 

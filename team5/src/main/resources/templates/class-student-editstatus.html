@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="lecturer-layout :: headsection">
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<div th:replace="lecturer-layout :: lecturer-menu"></div>
+		<div>
+		<a th:href="@{/lecturer/courses/list}" th:utext="#{menu.ViewCourses}">View All Courses</a>
+		
+	</div>
+
+	<h5>Request to Admin</h5>
+	<form action="#"
+		th:action="@{/lecturer/courses/{cid}/editstatus/{sid}(cid=${course.courseID},sid=${student.studentID})}"
+		th:object="${request}" method="post">
+		<h3>Course ID: <span align="center" th:text="${course.courseID}">
+			</span></h3>
+		<h3>Student Name: <span align="center" th:text="${student.name}">
+			</span></h3>
+		<h3>Student ID: <span align="center" th:text="${student.studentID}">
+			</span></h3>
+		<table align="center">
+			<tbody>
+				<table align="center">
+					<tbody>
+
+						<tr>
+							<td>
+								<fieldset>
+									<input type="radio" th:field="*{decision}" th:value="APPROVED" />
+									<label th:text="#{caption.approve}"></label> &nbsp;&nbsp; <input type="radio"
+										th:field="*{decision}" th:value="REJECTED" /> <label
+										th:text="#{caption.reject}"></label>
+								</fieldset>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<fieldset>
+									<span th:text="#{fieldLabel.managerComment}">Lecturer
+										Comment</span> <br>
+									<textarea rows="4" cols="60" th:field="*{comment}"> Text Area</textarea>
+								</fieldset>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<fieldset>
+									<input th:type="submit" value="Submit Request" class="blcass" />
+								</fieldset>
+							</td>
+
+						</tr>
+					</tbody>
+				</table>
+	</form>
+
+</body>
+
+</html>

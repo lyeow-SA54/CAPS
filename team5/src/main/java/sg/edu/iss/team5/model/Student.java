@@ -64,6 +64,9 @@ public class Student {
 	@Basic
 	@Column(name = "GPA")
 	private double gpa;
+	@Basic
+	@Column(name = "comment")
+	private String comment;
 	
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="studentID",cascade = CascadeType.ALL, orphanRemoval = true)	
 	private Set<Student_Course> studyList;
