@@ -9,8 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import sg.edu.iss.team5.helper.status;
@@ -38,16 +40,22 @@ import sg.edu.iss.team5.repositories.UserRepo;
 //	}
 	
 	public class Team5Application
-	implements CommandLineRunner {
+	implements CommandLineRunner 
+	{
 	@Autowired AdminRepo ar;
 	@Autowired UserRepo ur;
 	@Autowired StudentRepo sr;
 	@Autowired CourseRepo cr;
 	@Autowired LecturerRepo lcr;
 	@Autowired EnrolmentRepo er;
-	public static void main(String[] args) {
-		SpringApplication.run(Team5Application.class, args);
 
+	public static void main(String[] args) {
+		
+		ConfigurableApplicationContext context = SpringApplication.run(Team5Application.class, args);
+//		GreetingClient greetingClient = context.getBean(GreetingClient.class);
+//		System.out.println(">> message = " + greetingClient.getMessage().block());
+//		Hello hello = new Hello();
+//		System.out.println(hello.toString());
 	}
 	
 //	public void run(ApplicationContext ctx) {

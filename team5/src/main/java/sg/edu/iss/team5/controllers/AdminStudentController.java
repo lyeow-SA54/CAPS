@@ -74,6 +74,14 @@ public class AdminStudentController {
 		mav.addObject("slist", sList);
 		return mav;
 	}
+	
+	@RequestMapping(value = "/list/test")
+	public ModelAndView listStudentPage2() {
+		ModelAndView mav = new ModelAndView("student-list2");
+		ArrayList<Student> sList = sService.findAllStudents();
+		mav.addObject("slist", sList);
+		return mav;
+	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editStudentPage(@PathVariable String id) {
