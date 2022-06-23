@@ -10,7 +10,7 @@
 <body>
 	<div th:replace="student-layout :: student-menu"></div>
 
-	<div th:if="${not #lists.isEmpty(clist)}">
+	<div th:if="${not #lists.isEmpty(courselist)}">
 		<div class="container">
 			<div class="row">
 				<div class="col" style="margin-top: 15px; margin-bottom: 15px;" align="center">
@@ -38,7 +38,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="course : ${clist}" class="listRecord">
+							<tr th:each="course : ${courselist}" class="listRecord">
 								<form action="#" th:action="@{/student/courses/enroll/}" th:object="${course}"
 									method="post">
 									<td align="left" th:text="${course.courseID}"></td>

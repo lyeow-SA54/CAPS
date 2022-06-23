@@ -1,18 +1,15 @@
 package sg.edu.iss.team5.controllers;
 
 import java.util.ArrayList;
-
-import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.team5.helper.status;
@@ -25,7 +22,7 @@ import sg.edu.iss.team5.services.StudentService;
 
 @Controller
 @RequestMapping(value="/student")
-public class StudentController {
+public class StudentController<T> {
 	
 	@Autowired
 	private CourseService cService;
@@ -84,9 +81,12 @@ public class StudentController {
 			ArrayList<Student_Course> classList = eService.findAllEnrolmentByCourse(c);
 			c.setClassPax(classList.size());
 		}
+
+		List<Course> courselist = cList.stream()
+					.filter(x -> x.getClassPax()<x.getMaxCap())
+					.collect(Collectors.toList());
 		
-		mav.addObject("clist", cList);
-				
+		mav.addObject("courselist", courselist);
 		return mav;
 	}
 	
