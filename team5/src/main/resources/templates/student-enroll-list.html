@@ -29,7 +29,7 @@
 				<td align="left" th:text="${student_course.studentID.studentID}"></td>
 				<td align="left" th:text="${student_course.courseID.courseID}"></td>
 				<td align="left" th:text="${student_course.eventType}"></td>
-				<td align="left" th:text="${student_course.score}"></td>
+				<td align="left" th:text="${student_course.studentID.gpa}"></td>
 				<td><a th:href="@{/student/courses/view/}+${student_course.sc_ID}" class="btn btn-default"><span
 							th:text="#{caption.detail}"></span></a></td>
 			</tr>
