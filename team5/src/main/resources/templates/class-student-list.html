@@ -10,57 +10,101 @@
 
 <body>
 	<div th:replace="lecturer-layout :: lecturer-menu"></div>
-	<h3>Student List under Course <span th:text="${course.courseID}">
-		</span></h3>
-		<div>
-		<a th:href="@{/lecturer/courses/list}" th:utext="#{menu.ViewCourses}">View All Courses</a>
-		<a th:href="@{/lecturer/courses/{cid}(cid=${course.courseID})}" th:utext="#{menu.ClassList}">Class List</a>
-		
-	</di>
+
+	<div th:if="${#lists.isEmpty(sclist)}">
+		<div class="container">
+			<div class="row" style="margin-top:100px;">
+				<div class="col" align="center">
+					<img src="/image/no-data.png">
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col" style="text-align:center;">
+					<h4>There are no students<br>under Course <span th:text="${course.courseID}">
+						</span></h4>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<div th:if="${not #lists.isEmpty(sclist)}">
-		<table style="border: 1;" align="center">
+		<div class="container">
+			<div class="row">
+				<div class="col" style="text-align:center; margin-top: 15px; margin-bottom: 15px;">
+					<h4>Student List under Course <span th:text="${course.courseID}">
+						</span></h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3" style="margin-top: 20px; margin-bottom: 20px;">
+					<h5 style="text-decoration: underline;">
+						<a th:href="@{/lecturer/courses/list}" th:utext="#{menu.ViewCourses}">View All Courses</a>
+					</h5>
+				</div>
+				<div class="col-6"></div>
+				<div class="col-3" style="margin-top: 20px; margin-bottom: 20px; text-align:right;">
+					<h5 style="text-decoration: underline;">
+						<a th:href="@{/lecturer/courses/{cid}(cid=${course.courseID})}"
+							th:utext="#{menu.ClassList}">Class List</a>
+					</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-borderless">
+						<thead class="thead-light">
+							<tr>
+								<th><span th:text="#{fieldLabel.studentID}"></span></th>
+								<th><span th:text="#{fieldLabel.name}"></span></th>
+								<th><span th:text="#{fieldLabel.email}"></span></th>
+								<th><span th:text="#{fieldLabel.eventType}"></span></th>
+								<th><span th:text="#{caption.grade}"></span></th>
+								<th><span th:text="#{fieldLabel.score}"></span></th>
+								<th><span>Update Score</span></th>
+								<th><span>Update Enrollment Status</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="each : ${sclist}">
+								<form action="#"
+									th:action="@{/lecturer/courses/{cid}/{sid}(cid=${course.courseID},sid=${each.studentID.studentID})}"
+									method="post">
+									<td align="left" th:text="${each.studentID.studentID}">Student Id</td>
+									<!--variable name from sclist -->
+									<td align="left" th:text="${each.studentID.name}">Name</td>
+									<td align="left" th:text="${each.studentID.email}">Name</td>
+									<td align="left" th:text="${each.studentID.eventType}">Status</td>
+									<td>
+										<!--th:field retrieve object from GET -->
+										<span th:text="${each.score}">score</span>
+										<input size=3 th:field="${stuCourse.score}" th:value="${each.score}">
+									</td>
+									<td align="center" th:text="${each.studentID.gpa}">GPA</td>
+									<td>
+										<fieldset><input type="submit" value="Update Score" class="btn btn-primary" />
+										</fieldset>
+									</td>
 
-			<tr class="listHeading">
-				<th><span th:text="#{fieldLabel.studentID}"></span></th>
-				<th><span th:text="#{fieldLabel.name}"></span></th>
-				<th><span th:text="#{fieldLabel.email}"></span></th>
-				<th><span th:text="#{fieldLabel.eventType}"></span></th>
-				<th><span th:text="#{caption.grade}"></span></th>
-				<th><span th:text="#{fieldLabel.score}"></span></th>
-			</tr>
-			<tr th:each="each : ${sclist}" class="listRecord">
-				<form action="#" th:action="@{/lecturer/courses/{cid}/{sid}(cid=${course.courseID},sid=${each.studentID.studentID})}" method="post">
-					<td align="left" th:text="${each.studentID.studentID}">Student Id</td>
-					<!--variable name from sclist -->
-					<td align="left" th:text="${each.studentID.name}">Name</td>
-					<td align="left" th:text="${each.studentID.email}">Name</td>
-					<td align="left" th:text="${each.studentID.eventType}">Status</td>
-					<td>
-						<!--th:field retrieve object from GET -->
-						<span th:text="${each.score}">score</span>
-						<input size=3 th:field="${stuCourse.score}" th:value="${each.score}">
-					</td>
-					<td align="center" th:text="${each.studentID.gpa}">GPA</td>
-					<td>
-
-						<fieldset><input type="submit" value="Update Score" class="blcass" /></fieldset>
-					</td>
-
-					<td><a th:href="@{/lecturer/courses/{cid}/editstatus/{sid}(cid=${course.courseID},sid=${each.studentID.studentID})}"
-							class="btn btn-default"><span th:text="#{caption.request}"></span></a></td>
-				</form>
-			</tr>
-
-			<tr>
-				<td>
-					<a th:href="@{/lecturer/courses/list}">Back</a>
-				</td>
-			</tr>
-		</table>
+									<td>
+										<a
+											th:href="@{/lecturer/courses/{cid}/editstatus/{sid}(cid=${course.courseID},sid=${each.studentID.studentID})}">
+											<span th:text="#{caption.request}"></span>
+										</a>
+									</td>
+								</form>
+							</tr>
+							<tr>
+								<td>
+									<a th:href="@{/lecturer/courses/list}">Back</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
-
 </body>
 
 </html>

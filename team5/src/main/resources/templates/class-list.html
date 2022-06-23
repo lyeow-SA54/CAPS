@@ -9,30 +9,71 @@
 
 <body>
 	<div th:replace="lecturer-layout :: lecturer-menu"></div>
-	<h5>Course Teaching List</h5>
-	<div>
-		<a th:href="@{/lecturer/courses/list}" th:utext="#{menu.ViewCourses}">View All Courses</a>
-		
-	</div>
-	<div th:if="${not #lists.isEmpty(clist)}">
-		<table style="border: 1;" align="center">
 
-			<tr class="listHeading">
-				<th><span th:text="#{fieldLabel.courseID}"></span></th>
-				<th><span th:text="#{fieldLabel.code}"></span></th>
-				<th><span th:text="#{fieldLabel.name}"></span></th>
-				<th><span th:text="#{fieldLabel.classPax}"></span></th>
-				<th><span th:text="#{caption.selectc}"></span></th>
-			</tr>
-			<tr th:each="course : ${clist}" class="listRecord">
-				<td align="left" th:text="${course.courseID}">Course Id</td>
-				<td align="left" th:text="${course.code}">Course Code</td>
-				<td align="left" th:text="${course.name}">Name</td>
-				<td align="left" th:text="${course.classPax}">Class Pax</td>
-				<td><a th:href="@{/lecturer/courses/{cid}(cid=${course.courseID})}" class="btn btn-default"><span		
-							th:text="#{caption.selectc}"></span></a></td>
-			</tr>
-		</table>
+	<div th:if="${#lists.isEmpty(clist)}">
+		<div class="container">
+			<div class="row">
+				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
+					<h4>Course Teaching Lists</h4>
+				</div>
+
+			</div>
+			<div class="row" style="margin-top:100px;">
+				<div class="col" align="center">
+					<img src="/image/no-data.png">
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col" style="text-align:center;">
+					<h4>There are no course teaching list yet.</h4>
+					<h5 style="text-decoration: underline;">
+						<a th:href="@{/lecturer/courses/list}" th:utext="#{menu.ViewCourses}">View All Courses</a>
+					</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:if="${not #lists.isEmpty(clist)}">
+		<div class="container">
+			<div class="row">
+				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
+					<h4>Course Lists</h4>
+				</div>
+				<div class="col-6"></div>
+				<div class="col-3" style="margin-top: 20px; margin-bottom: 20px; text-align:right;">
+					<h5 style="text-decoration: underline;"><a th:href="@{/admin/courses/create}">Add Course</a></h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span th:text="#{fieldLabel.courseID}"></span></th>
+								<th><span th:text="#{fieldLabel.code}"></span></th>
+								<th><span th:text="#{fieldLabel.name}"></span></th>
+								<th><span th:text="#{fieldLabel.classPax}"></span></th>
+								<th><span th:text="#{caption.selectc}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="course : ${clist}">
+								<td align="left" th:text="${course.courseID}">Course Id</td>
+								<td align="left" th:text="${course.code}">Course Code</td>
+								<td align="left" th:text="${course.name}">Name</td>
+								<td align="left" th:text="${course.classPax}">Class Pax</td>
+								<td>	
+									<a th:href="@{/lecturer/courses/{cid}(cid=${course.courseID})}">
+										<span th:text="#{caption.selectc}"></span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 

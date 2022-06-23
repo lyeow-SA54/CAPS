@@ -1,37 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout :: headsection">
+<head th:replace="student-layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
 <body>
-	<div th:replace="layout :: admin-menu"></div>
-	<h5>Enrollment List page</h5>
-	<div >
-		<a th:href="@{/student/courses/list}" th:utext="#{menu.ViewEnrolledCourses}">View Enrolled Courses</a>
-		<a th:href="@{/student/courses/enroll}" th:utext="#{menu.CourseEnrolment}">Courses available for enrolment</a>
-	</div>
-	<div>
-		<table style="border: 1;" align="center">
+	<div th:replace="student-layout :: student-menu"></div>
 
-			<tr class="listHeading">
+	<div class="container">
+		<div class="row">
+			<div class="col" style="margin-top: 15px; margin-bottom: 15px;" align="center">
+				<h4>Enrollment Details</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<table class="table table-striped">
+					<thead>
+						<tr>
 
-				<th><span th:text="#{fieldLabel.studentID}"></span></th>
-				<th><span th:text="#{fieldLabel.courseID}"></span></th>
-				<th><span th:text="#{fieldLabel.eventType}"></span></th>
-				<th><span th:text="#{fieldLabel.score}"></span></th>
-			</tr>
-			<tr th:object="${enrolment}" class="listRecord">
+							<th><span th:text="#{fieldLabel.studentID}"></span></th>
+							<th><span th:text="#{fieldLabel.courseID}"></span></th>
+							<th><span th:text="#{fieldLabel.eventType}"></span></th>
+							<th><span th:text="#{fieldLabel.score}"></span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:object="${enrolment}">
 
-				<td align="left" th:text="${enrolment.studentID.studentID}"></td>
-				<td align="left" th:text="${enrolment.courseID.courseID}"></td>
-				<td align="left" th:text="${enrolment.eventType.toString()}"></td>
-				<td align="left" th:text="${enrolment.score}"></td>
-			</tr>
-		</table>
+							<td align="left" th:text="${enrolment.studentID.studentID}"></td>
+							<td align="left" th:text="${enrolment.courseID.courseID}"></td>
+							<td align="left" th:text="${enrolment.eventType.toString()}"></td>
+							<td align="left" th:text="${enrolment.score}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
 

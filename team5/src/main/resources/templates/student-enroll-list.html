@@ -1,40 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout :: headsection">
+<head th:replace="student-layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
 <body>
-	<div th:replace="layout :: admin-menu"></div>
-	<h5>Enrollment List page</h5>
-	<div >
-		<a th:href="@{/student/courses/list}" th:utext="#{menu.ViewEnrolledCourses}">View Enrolled Courses</a>
-		<a th:href="@{/student/courses/enroll}" th:utext="#{menu.CourseEnrolment}">Courses available for enrolment</a>
+	<div th:replace="student-layout :: student-menu"></div>
+	
+	<div th:if="${#lists.isEmpty(elist)}">
+	<div class="container">
+			<div class="row">
+				<div class="col-3" style="margin-top: 15px; margin-bottom: 15px;">
+					<h4>Enrolled Courses List</h4>
+				</div>
+
+			</div>
+			<div class="row" style="margin-top:100px;">
+				<div class="col" align="center">
+					<img src="/images/no-data.png">
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col" style="text-align:center;">
+					<h4>You have not enrolled any courses.</h4>
+				</div>
+			</div>
+		</div>
 	</div>
+	
 	<div th:if="${not #lists.isEmpty(elist)}">
-		<table style="border: 1;" align="center">
-
-			<tr class="listHeading">
-
-				<th><span th:text="#{fieldLabel.studentID}"></span></th>
-				<th><span th:text="#{fieldLabel.courseID}"></span></th>
-				<th><span th:text="#{fieldLabel.eventType}"></span></th>
-				<th><span th:text="#{fieldLabel.score}"></span></th>
-			</tr>
-			<tr th:each="student_course : ${elist}" class="listRecord">
-
-				<td align="left" th:text="${student_course.studentID.studentID}"></td>
-				<td align="left" th:text="${student_course.courseID.courseID}"></td>
-				<td align="left" th:text="${student_course.eventType}"></td>
-				<td align="left" th:text="${student_course.studentID.gpa}"></td>
-				<td><a th:href="@{/student/courses/view/}+${student_course.sc_ID}" class="btn btn-default"><span
-							th:text="#{caption.detail}"></span></a></td>
-			</tr>
-		</table>
-	</div>
+		<div class="container">
+			<div class="row">
+				<div class="col" style="margin-top: 15px; margin-bottom: 15px;" align="center">
+					<h4>Enrolled Course List</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span th:text="#{fieldLabel.studentID}"></span></th>
+								<th><span th:text="#{fieldLabel.courseID}"></span></th>
+								<th><span th:text="#{fieldLabel.eventType}"></span></th>
+								<th><span th:text="#{fieldLabel.score}"></span></th>
+								<th><span>Detail</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="student_course : ${elist}">
+								<td align="left" th:text="${student_course.studentID.studentID}"></td>
+								<td align="left" th:text="${student_course.courseID.courseID}"></td>
+								<td align="left" th:text="${student_course.eventType}"></td>
+								<td align="left" th:text="${student_course.score}"></td>
+								<td>
+									<a th:href="@{/student/courses/view/}+${student_course.sc_ID}">
+										<span th:text="#{caption.detail}"></span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 </body>
 
 </html>

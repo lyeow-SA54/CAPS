@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout :: headsection">
+<head th:replace="student-layout :: headsection">
 	<meta charset="ISO-8859-1">
 	<title>CAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
 <body>
-	<div th:replace="layout :: admin-menu"></div>
-	<h5>Enroll In Course</h5>
-	<div >
-		<a th:href="@{/student/courses/list}" th:utext="#{menu.ViewEnrolledCourses}">View Enrolled Courses</a>
-		<a th:href="@{/student/courses/enroll}" th:utext="#{menu.CourseEnrolment}">Courses available for enrolment</a>
-	</div>
+	<div th:replace="student-layout :: student-menu"></div>
+
 	<div th:if="${not #lists.isEmpty(clist)}">
-		<table style="border: 1;" align="center">
-
-			<tr class="listHeading">
-				<th><span th:text="#{fieldLabel.courseID}"></span></th>
-				<th><span th:text="#{fieldLabel.classPax}"></span></th>
-				<th><span th:text="#{fieldLabel.code}"></span></th>
-				<th><span th:text="#{fieldLabel.courseDays}"></span></th>
-				<th><span th:text="#{fieldLabel.credits}"></span></th>
-				<th><span th:text="#{fieldLabel.description}"></span></th>
-				<th><span th:text="#{fieldLabel.fee}"></span></th>
-				<th><span th:text="#{fieldLabel.lessonDay}"></span></th>
-				<th><span th:text="#{fieldLabel.maxCap}"></span></th>
-				<th><span th:text="#{fieldLabel.name}"></span></th>
-				<th><span th:text="#{fieldLabel.room}"></span></th>
-				<th><span th:text="#{fieldLabel.startDate}"></span></th>
-			</tr>
-			<tr th:each="course : ${clist}" class="listRecord">
-            <form action="#" th:action="@{/student/courses/enroll/}" th:object="${course}" method="post">
-                <td align="left" th:text="${course.courseID}"></td>
-                <td align="left" th:text="${course.classPax}"></td>
-                <td align="left" th:text="${course.code}"></td>
-                <td align="left" th:text="${course.courseDays}"></td>
-                <td align="left" th:text="${course.credits}"></td>
-                <td align="left" th:text="${course.description}"></td>
-                <td align="left" th:text="${course.fee}"></td>
-                <td align="left" th:text="${course.lessonDay}"></td>
-                <td align="left" th:text="${course.maxCap}"></td>
-                <td align="left" th:text="${course.name}"></td>
-                <td align="left" th:text="${course.room}"></td>
-                <td align="left" th:text="${course.startDate}"></td>
-                <td><a th:href="@{/student/courses/enroll/}+${course.courseID}">
-										<span th:text="#{caption.edit}"></span>
-									</a></td>
-            </form>
-			</tr>
-		</table>
-	</div>
+		<div class="container">
+			<div class="row">
+				<div class="col" style="margin-top: 15px; margin-bottom: 15px;" align="center">
+					<h4>Enroll In Course</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span th:text="#{fieldLabel.courseID}"></span></th>
+								<th><span th:text="#{fieldLabel.classPax}"></span></th>
+								<th><span th:text="#{fieldLabel.code}"></span></th>
+								<th><span th:text="#{fieldLabel.courseDays}"></span></th>
+								<th><span th:text="#{fieldLabel.credits}"></span></th>
+								<th colspan="3"><span th:text="#{fieldLabel.description}"></span></th>
+								<th><span th:text="#{fieldLabel.fee}"></span></th>
+								<th><span th:text="#{fieldLabel.lessonDay}"></span></th>
+								<th><span th:text="#{fieldLabel.maxCap}"></span></th>
+								<th><span th:text="#{fieldLabel.name}"></span></th>
+								<th><span th:text="#{fieldLabel.room}"></span></th>
+								<th><span th:text="#{fieldLabel.startDate}"></span></th>
+								<th><span>Enroll</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="course : ${clist}" class="listRecord">
+								<form action="#" th:action="@{/student/courses/enroll/}" th:object="${course}"
+									method="post">
+									<td align="left" th:text="${course.courseID}"></td>
+									<td align="left" th:text="${course.classPax}"></td>
+									<td align="left" th:text="${course.code}"></td>
+									<td align="left" th:text="${course.courseDays}"></td>
+									<td align="left" th:text="${course.credits}"></td>
+									<td colspan="3" align="left" th:text="${course.description}"></td>
+									<td align="left" th:text="${course.fee}"></td>
+									<td align="left" th:text="${course.lessonDay}"></td>
+									<td align="left" th:text="${course.maxCap}"></td>
+									<td align="left" th:text="${course.name}"></td>
+									<td align="left" th:text="${course.room}"></td>
+									<td align="left" th:text="${course.startDate}"></td>
+									<td><a th:href="@{/student/courses/enroll/}+${course.courseID}">
+											<span>Enroll</span>
+										</a></td>
+								</form>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 </body>
-
 </html>
