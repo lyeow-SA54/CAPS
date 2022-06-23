@@ -2,6 +2,7 @@ package sg.edu.iss.team5;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.attoparser.trace.MarkupTraceEvent.EventType;
@@ -11,12 +12,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.BeanDefinitionDsl.Role;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Admin;
 import sg.edu.iss.team5.model.Course;
 import sg.edu.iss.team5.model.Lecturer;
+import sg.edu.iss.team5.model.Role;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.model.User;
@@ -61,10 +63,13 @@ import sg.edu.iss.team5.repositories.UserRepo;
     public void run(String... args) throws Exception
     {
 
-//		User u1 = new User();
-//		u1.setUserId("U00001");
-//		u1.setPassword("password");
-//		u1.setRole("");
+		Role role = new Role("ADMIN");
+		List<Role> rolelist = List.of(role);
+		User user  = new User();
+		user.setRoles(rolelist);
+		user.setUsername("A1");
+		user.setPassword(new BCryptPasswordEncoder().encode("1"));
+		ur.saveAndFlush(user);
 		
 		Student s1 = new Student("S00001", "Mary", "mary@u.nus.edu");
 		s1.setStartDate(LocalDate.parse("2022-05-25"));
