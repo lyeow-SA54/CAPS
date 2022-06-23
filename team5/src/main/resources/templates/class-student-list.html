@@ -7,7 +7,8 @@
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
-
+<div class="alert" th:text="${error}"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+ Error message</div>
 <body>
 	<div th:replace="lecturer-layout :: lecturer-menu"></div>
 

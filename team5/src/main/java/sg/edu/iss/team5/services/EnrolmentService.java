@@ -2,6 +2,7 @@ package sg.edu.iss.team5.services;
 
 import java.util.ArrayList;
 
+import sg.edu.iss.team5.exception.SpecificEnrollmentNotFound;
 import sg.edu.iss.team5.model.Course;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
@@ -22,7 +23,7 @@ public interface EnrolmentService {
 	
 	ArrayList<Student_Course> findAllEnrolmentByStudent(Student student);
 	
-	Student_Course findEnrolmentByCourseAndStudent(Course course, Student student);
+	Student_Course findEnrolmentByCourseAndStudent(Course course, Student student) throws SpecificEnrollmentNotFound;
 	
 	ArrayList<Course> findAvailableEnrolmentByStudent(Student student);
 

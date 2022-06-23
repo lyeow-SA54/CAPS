@@ -50,16 +50,15 @@ public class StudentController {
 	}
 	
 	//view grade and gpa
-	@RequestMapping(value="/courses/view/{scid}",method = RequestMethod.GET)
-	public ModelAndView viewGradePage(@PathVariable String scid) {
-		ModelAndView mav = new ModelAndView("student-enroll-view");//create grade-list
+	@RequestMapping(value="/courses/view/{cid}",method = RequestMethod.GET)
+	public ModelAndView viewGradePage(@PathVariable String cid) {
+		ModelAndView mav = new ModelAndView("student-enrolledcourse-view");//create grade-list
 //		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 //		Student student = sService.findStudent(username);
 //		Course course = cService.findCourse(cid);
-		Student_Course enrolment = eService.findEnrolment(scid);
-		Student student = sService.findStudent(scid);
-		mav.addObject("student",student);
-		mav.addObject("enrolment", enrolment);
+		Course course = cService.findCourse(cid);
+//		Student student = sService.findStudent(scid);
+		mav.addObject("course", course);
 		return mav;	
 	}
 	

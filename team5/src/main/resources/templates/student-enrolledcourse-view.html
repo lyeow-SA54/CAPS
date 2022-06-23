@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: headsection">
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<div th:replace="student-layout :: student-menu"></div>
+	
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped">
+						<thead>
+							<tr class="listHeading">
+								<th><span th:text="#{fieldLabel.courseID}"></span></th>
+								<th><span th:text="#{fieldLabel.classPax}"></span></th>
+								<th><span th:text="#{fieldLabel.code}"></span></th>
+								<th><span th:text="#{fieldLabel.courseDays}"></span></th>
+								<th><span th:text="#{fieldLabel.credits}"></span></th>
+								<th><span th:text="#{fieldLabel.description}"></span></th>
+								<th><span th:text="#{fieldLabel.fee}"></span></th>
+								<th><span th:text="#{fieldLabel.lessonDay}"></span></th>
+								<th><span th:text="#{fieldLabel.maxCap}"></span></th>
+								<th><span th:text="#{fieldLabel.name}"></span></th>
+								<th><span th:text="#{fieldLabel.room}"></span></th>
+								<th><span th:text="#{fieldLabel.startDate}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:object="${course}" class="listRecord">
+								<td align="left" th:text="${course.courseID}"></td>
+								<td align="left" th:text="${course.classPax}"></td>
+								<td align="left" th:text="${course.code}"></td>
+								<td align="left" th:text="${course.courseDays}"></td>
+								<td align="left" th:text="${course.credits}"></td>
+								<td align="left" th:text="${course.description}"></td>
+								<td align="left" th:text="${course.fee}"></td>
+								<td align="left" th:text="${course.lessonDay}"></td>
+								<td align="left" th:text="${course.maxCap}"></td>
+								<td align="left" th:text="${course.name}"></td>
+								<td align="left" th:text="${course.room}"></td>
+								<td align="left" th:text="${course.startDate}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+</body>
+
+</html>

@@ -20,7 +20,7 @@
 			</div>
 			<div class="row" style="margin-top:100px;">
 				<div class="col" align="center">
-					<img src="/images/no-data.png">
+					<img src="/image/no-data.png">
 				</div>
 			</div><br>
 			<div class="row">
@@ -57,7 +57,7 @@
 								<td align="left" th:text="${student_course.eventType}"></td>
 								<td align="left" th:text="${student_course.score}"></td>
 								<td>
-									<a th:href="@{/student/courses/view/}+${student_course.sc_ID}">
+									<a th:href="@{/student/courses/view/}+${student_course.courseID.courseID}">
 										<span th:text="#{caption.detail}"></span>
 									</a>
 								</td>

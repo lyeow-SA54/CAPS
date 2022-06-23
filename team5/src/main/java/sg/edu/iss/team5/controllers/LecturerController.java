@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.team5.exception.CourseNotFound;
 import sg.edu.iss.team5.exception.EnrolmentNotFound;
+import sg.edu.iss.team5.exception.SpecificEnrollmentNotFound;
 import sg.edu.iss.team5.helper.Request;
 import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Course;
@@ -88,17 +89,17 @@ public class LecturerController {
 
 	@RequestMapping(value = "/courses/{cid}/{sid}", method = RequestMethod.POST)
 	public ModelAndView studentGradingPage(@PathVariable("cid") String cid, @PathVariable("sid") String sid,
-			@ModelAttribute Student_Course enrolment) {
+			@ModelAttribute Student_Course enrolment, Model model) throws SpecificEnrollmentNotFound {
 		System.out.println(enrolment.getScore());
 		ModelAndView mav = new ModelAndView("class-student-list");
 
 		System.out.println(1);
 		Course course = cService.findCourse(cid);
 		Student s = sService.findStudent(sid);
-
+		
+		try {
 		Student_Course sc = eService.findEnrolmentByCourseAndStudent(course, s);
 		sc.setScore(enrolment.getScore());
-
 		String message = "Student " + s.getStudentID() + " grade has been updated.";
 		System.out.println(message);
 
@@ -131,6 +132,12 @@ public class LecturerController {
 		System.out.println(6);
 		sService.changeStudent(s);
 
+		}
+		catch (SpecificEnrollmentNotFound e)
+		{
+			model.addAttribute("error", e.getMessage());
+		}
+
 		System.out.println(7);
 		mav = new ModelAndView("redirect:/lecturer/courses/" + cid);
 
@@ -153,13 +160,14 @@ public class LecturerController {
 		}
 		
 	@RequestMapping(value = "/courses/{cid}/editstatus/{sid}", method = RequestMethod.POST)
-	public ModelAndView sendPendingRequest(@ModelAttribute("request") Request request,@PathVariable String cid, @PathVariable String sid) {
-		
-		
+	public ModelAndView sendPendingRequest(@ModelAttribute("request") Request request,@PathVariable String cid, @PathVariable String sid, Model model) 
+			 throws SpecificEnrollmentNotFound 
+	{
+		ModelAndView mav = new ModelAndView("class-student-editstatus");
 		Course course = cService.findCourse(cid);
 		Student student = sService.findStudent(sid);
+		try {
 		Student_Course sc = eService.findEnrolmentByCourseAndStudent(course, student);
-		ModelAndView mav = new ModelAndView("class-student-editstatus");
 
 		if (request.getDecision().trim().equalsIgnoreCase(status.APPROVED.toString())) {
 			student.setEventType(status.APPROVED);
@@ -170,11 +178,13 @@ public class LecturerController {
 			sService.changeStudent(student);
 			eService.changeEnrolment(sc);
 		}
-		// ce.setEventBy(usession.getEmployee().getEmployeeId());
 		student.setComment(request.getComment());
-
 		eService.changeEnrolment(sc);
-
+		}
+		catch (SpecificEnrollmentNotFound e)
+		{
+			model.addAttribute("error", e.getMessage());
+		}
 		mav = new ModelAndView("redirect:/lecturer/courses/" + cid);
 		String message = "Request for student " + student.getStudentID() +" been sent to admin for update.";
 		System.out.println(message);
