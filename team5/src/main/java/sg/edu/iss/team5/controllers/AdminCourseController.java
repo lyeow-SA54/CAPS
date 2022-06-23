@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -23,10 +24,12 @@ import sg.edu.iss.team5.exception.CourseNotFound;
 import sg.edu.iss.team5.exception.EnrolmentNotFound;
 import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Course;
+import sg.edu.iss.team5.model.Lecturer;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.services.CourseService;
 import sg.edu.iss.team5.services.EnrolmentService;
+import sg.edu.iss.team5.services.LecturerService;
 import sg.edu.iss.team5.services.StudentService;
 
 
@@ -41,6 +44,7 @@ public class AdminCourseController {
 	private EnrolmentService eService;
 	@Autowired
 	private StudentService sService;
+	@Autowired LecturerService lService;
 //	
 //	@Autowired
 //	private UserValidator uValidator;
@@ -82,6 +86,11 @@ public class AdminCourseController {
 	public ModelAndView listCoursePage() {
 		ModelAndView mav = new ModelAndView("course-list");
 		ArrayList<Course> cList = cService.findAllCourses();
+		for (Course c : cList) {
+			ArrayList<Student_Course> classList = eService.findAllEnrolmentByCourse(c);
+			c.setClassPax(classList.size());
+		}
+		
 		mav.addObject("clist", cList);
 		return mav;
 	}
@@ -126,6 +135,8 @@ public class AdminCourseController {
 	public ModelAndView listEnrolmentPage() {
 		ModelAndView mav = new ModelAndView("enroll-list");
 		ArrayList<Student_Course> eList = eService.findAllEnrolment();
+		
+		
 		mav.addObject("elist", eList);
 		return mav;
 	}
@@ -175,6 +186,52 @@ public class AdminCourseController {
 		String message = "Enrolment was successfully updated.";
 		System.out.println(message);
 		eService.changeEnrolment(stu_c);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/assign/{courseID}", method = RequestMethod.GET)
+	public ModelAndView assignCoursePage(@PathVariable("courseID") String courseID,Model model ) {
+		ModelAndView mav = new ModelAndView("course-assign");
+		Course course = cService.findCourse(courseID);
+		ArrayList<Lecturer> lecturer = lService.findAllLecturers();
+		
+		Lecturer l = new Lecturer();
+		model.addAttribute("course", course);
+		
+		mav.addObject("course", course);
+		mav.addObject("l", l);
+		mav.addObject("lecturer", lecturer);
+		return mav;
+	}
+
+	
+	@RequestMapping(value = "/assign/{courseID}", method = RequestMethod.POST)
+	public ModelAndView assignCourseSubmit(@PathVariable("courseID") String courseID,@ModelAttribute ("selectedLecturer") Lecturer lecturer,BindingResult result) throws CourseNotFound {
+
+		if (result.hasErrors())
+			return new ModelAndView("course-list");
+
+		ModelAndView mav = new ModelAndView("forward:/admin/courses/list");
+		String message = "Lecturer was successfully assigned to course " + courseID + " .";
+		System.out.println(message);
+		Course course = cService.findCourse(courseID);
+		Lecturer l = lService.findLecturer(lecturer.getLecturerID());
+		System.out.println(course.getCourseID());
+		System.out.println(lecturer.getLecturerID());	
+		cService.assignCourseToLecturer(course.getCourseID(),l.getLecturerID());
+		return mav;
+	}
+	
+	@RequestMapping(value = "/assign/remove/{courseID}/{lecturerID}", method = RequestMethod.GET)
+	public ModelAndView editAssignPage(@PathVariable("courseID") String courseID,@PathVariable("lecturerID") String lecturerID)throws CourseNotFound {
+		ModelAndView mav = new ModelAndView("forward:/admin/courses/list");
+		
+		Course course = cService.findCourse(courseID);
+		Lecturer l = lService.findLecturer(lecturerID);
+		
+		cService.removeLectureFromCourse(course.getCourseID(),l.getLecturerID());
+		String message = "The lecturer " + course.getCourseID() + " was successfully deleted.";
+		System.out.println(message);
 		return mav;
 	}
 }

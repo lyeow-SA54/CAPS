@@ -1,6 +1,7 @@
 package sg.edu.iss.team5;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,13 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		courselist.add(c2);
 		l1.setTeachings(courselist);
 		lcr.save(l1);
+		
+		
+		User a = new User();
+		a.setUsername("a1");
+		a.setPassword("123");
+		
+		
     }
 
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: headsection">
+	<meta charset="ISO-8859-1">
+	<title>CAPS</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<div th:replace="layout :: admin-menu"></div>
+	<h5>Pending Request from Lecturers</h5>
+	<div th:if="${not #lists.isEmpty(pendinghistory)}">
+		<table>
+			<tr class="listRecord" th:each="entry, stat : ${pendinghistory} ">
+				<td>
+					<div th:if="${not #lists.isEmpty(entry.value)}">
+						<span th:text="${entry.key.name}">Name</span> <br />
+						<table style="border: 1;">
+							<tr class="listHeading">
+								<th><span th:text="#{fieldLabel.studentID}"></span></th>
+								<th><span th:text="#{fieldLabel.courseID}"></span></th>
+								<th><span th:text="#{fieldLabel.eventType}"></span></th>
+								<th><span th:text="#{fieldLabel.comment}"></span></th>
+							</tr>
+							<tr class="listRecord" th:each="student : ${entry.value}">
+
+								<td align="left" th:text="${student.studentID}"></td>
+								<td align="left" th:text="${entry.key.courseID}"></td>
+								<td align="left" th:text="${student.eventType}"></td>
+								<td align="left" th:text="${student.comment}"></td>
+								<td><a th:href="@{/admin/students/edit/{id}(id=${student.studentID})}"
+										class="btn btn-default"><span th:text="#{caption.edit}"></span></a></td>
+							</tr>
+						</table>
+					</div>
+</body>
+
+</html>

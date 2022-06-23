@@ -2,8 +2,11 @@ package sg.edu.iss.team5.services;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Service;
+
 import sg.edu.iss.team5.model.Course;
 import sg.edu.iss.team5.model.Lecturer;
+
 
 public interface CourseService {
 
@@ -18,5 +21,8 @@ public interface CourseService {
 	Course changeCourse(Course course);
 
 	void removeCourse(Course course);	
+	Course assignCourseToLecturer (String courseId, String lecturerId);
+
+	Course removeLectureFromCourse(String courseId, String lecturerId);
 
 }

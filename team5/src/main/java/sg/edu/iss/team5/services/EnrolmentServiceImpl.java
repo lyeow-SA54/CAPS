@@ -67,6 +67,8 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		sService.changeStudent(s);
 		Set<Student_Course> clist = c.getClassList();
 		clist.add(stu_c);
+		
+		cService.changeCourse(c);
 		return enrollRepository.saveAndFlush(stu_c);
 	}
 
@@ -78,7 +80,8 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	public Student_Course changeEnrolment(Student_Course stu_c) {
 		Student_Course sc = findEnrolment(stu_c.getSc_ID());
 		sc.setEventType(stu_c.getEventType());
-		sc.setScore(stu_c.getScore());
+		int score = stu_c.getScore();
+		sc.setScore(score);
 		return enrollRepository.saveAndFlush(sc);
 	}
 

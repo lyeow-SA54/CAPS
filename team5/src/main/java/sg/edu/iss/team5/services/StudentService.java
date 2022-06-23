@@ -19,4 +19,5 @@ public interface StudentService {
 
 	void removeStudent(Student student);	
 
+	ArrayList<Student> findPendingCoursesByStudent(String sid);	
 }
