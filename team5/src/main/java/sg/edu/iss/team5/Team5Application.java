@@ -18,7 +18,6 @@ import sg.edu.iss.team5.model.Role;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
 import sg.edu.iss.team5.model.User;
-import sg.edu.iss.team5.repositories.AdminRepo;
 import sg.edu.iss.team5.repositories.CourseRepo;
 import sg.edu.iss.team5.repositories.EnrolmentRepo;
 import sg.edu.iss.team5.repositories.LecturerRepo;
@@ -28,14 +27,8 @@ import sg.edu.iss.team5.repositories.UserRepo;
 
 
 @SpringBootApplication
-//public class Team5Application{
-//	public static void main(String[] args) {
-//		SpringApplication.run(Team5Application.class, args);
-//	}
-	
 	public class Team5Application
 	implements CommandLineRunner {
-	@Autowired AdminRepo ar;
 	@Autowired UserRepo ur;
 	@Autowired StudentRepo sr;
 	@Autowired CourseRepo cr;
@@ -60,52 +53,52 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		Student s1 = new Student("S00001", "Mary", "mary@u.nus.edu");
 		s1.setStartDate(LocalDate.parse("2022-05-25"));
 		s1.setEventType(status.APPROVED);
-		s1.setGpa(8.0);
+		s1.setGpa(2.0);
 		
 		Student s2 = new Student("S00002", "John", "john@u.nus.edu");
 		s2.setStartDate(LocalDate.parse("2022-01-24"));
 		s2.setEventType(status.APPROVED);
-		s2.setGpa(12.0);
+		s2.setGpa(3.2);
 		
 		Student s3 = new Student("S00003", "Lily", "lily@u.nus.edu");
 		s3.setStartDate(LocalDate.parse("2022-03-19"));
 		s3.setEventType(status.INPROGRESS);
-		s3.setGpa(14.0);
+		s3.setGpa(4.0);
 		
 		Student s4 = new Student("S00004", "Peter", "peter@u.nus.edu");
 		s4.setStartDate(LocalDate.parse("2022-02-19"));
 		s4.setEventType(status.UPDATED);
-		s4.setGpa(7.0);
+		s4.setGpa(3.3);
 		
 		Student s5 = new Student("S00005", "Bobby", "bobby@u.nus.edu");
 		s5.setStartDate(LocalDate.parse("2022-09-17"));
 		s5.setEventType(status.INPROGRESS);
-		s5.setGpa(8.0);
+		s5.setGpa(3.0);
 		
 		Student s6 = new Student("S00006", "James", "james@u.nus.edu");
 		s6.setStartDate(LocalDate.parse("2022-08-05"));
 		s6.setEventType(status.UPDATED);
-		s6.setGpa(32.0);
+		s6.setGpa(4.3);
 		
 		Student s7 = new Student("S00007", "Robert", "robert@u.nus.edu");
 		s7.setStartDate(LocalDate.parse("2022-07-24"));
 		s7.setEventType(status.INPROGRESS);
-		s7.setGpa(19.0);
+		s7.setGpa(5.0);
 		
 		Student s8 = new Student("S00008", "Ella", "ella@u.nus.edu");
 		s8.setStartDate(LocalDate.parse("2022-08-09"));
 		s8.setEventType(status.INPROGRESS);
-		s8.setGpa(19.0);
+		s8.setGpa(4.7);
 		
 		Student s9 = new Student("S00009", "Nova", "nova@u.nus.edu");
 		s9.setStartDate(LocalDate.parse("2022-05-16"));
 		s9.setEventType(status.APPROVED);
-		s9.setGpa(35.0);		
+		s9.setGpa(2.7);		
 		
 		Student s10 = new Student("S00010", "Elizabeth", "elizabeth@u.nus.edu");
 		s10.setStartDate(LocalDate.parse("2022-04-03"));
 		s10.setEventType(status.WITHDRAWN);
-		s10.setGpa(8.0);		
+		s10.setGpa(3.0);		
 		
 		Course c1 = new Course();
 		c1.setCourseID("SA4102");
@@ -179,7 +172,7 @@ import sg.edu.iss.team5.repositories.UserRepo;
 		c5.setLessonDay("Mon to Fri");
 		c5.setFee(3520.00);
 		c5.setClassPax(55);
-		c5.setMaxCap(75);
+		c5.setMaxCap(6);
 		cr.save(c5);
 		
 		Lecturer l1 = new Lecturer("L00001");

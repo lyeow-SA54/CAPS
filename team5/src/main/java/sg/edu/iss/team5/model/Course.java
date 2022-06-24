@@ -26,11 +26,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Course {
-	public Course(String code, String name, int courseDays) {}
-	public Course(String code, String name, int courseDays, LocalDate startDate, String description, String room,
-			double credits, String lessonDay, double fee, int maxCap) {
-		// TODO Auto-generated constructor stub
-	}
 
 	@Id
 	@Column(name = "course_id")
@@ -89,4 +84,9 @@ public class Course {
 		lecturer.getTeachings().add(this);
 	}
 	
+	public Course(String courseId, String name, int courseDays) {
+		this.courseID = courseId;
+		this.name = name;
+		this.courseDays = courseDays;
+		}
 }

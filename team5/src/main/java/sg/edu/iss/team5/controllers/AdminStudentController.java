@@ -80,25 +80,6 @@ public class AdminStudentController {
 		mav.addObject("slist", sList);
 		return mav;
 	}
-	@RequestMapping(value = "/list/pending")
-	public ModelAndView pendingApprovals() {
-		//UserSession usession = (UserSession) session.getAttribute("usession");
-		HashMap<Course, ArrayList<Student>> hm = new HashMap<Course, ArrayList<Student>>();
-		//System.out.println(usession.toString());
-		ModelAndView mav = new ModelAndView("pending-course-history");
-		//if (usession.getUser() != null) {
-		ArrayList<Student_Course> sc = eService.findAllEnrolment();
-		
-		for (int i = 0; i<sc.size(); i++)
-		{
-			ArrayList<Student> slist = sService.findPendingCoursesByStudent(sc.get(i).getStudentID().getStudentID());
-			hm.put(sc.get(i).getCourseID(), slist);
-		}
-		mav.addObject("sList", sc);
-		mav.addObject("pendinghistory", hm);
-		return mav;
-		
-	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editStudentPage(@PathVariable String id , Model model) {
