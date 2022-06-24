@@ -103,7 +103,6 @@ public class StudentController<T> {
 		ModelAndView mav = new ModelAndView("student-enroll-new");
 		Student student = sService.findStudent(username);
 		ArrayList<Course>cList = eService.findAvailableEnrolmentByStudent(student);
-		
 		ArrayList<Course> List = cService.findAllCourses();
 		for (Course c : List) {
 			ArrayList<Student_Course> classList = eService.findAllEnrolmentByCourse(c);
@@ -126,8 +125,8 @@ public class StudentController<T> {
         Course course = cService.findCourse(cid);
         eService.createEnrolment(new Student_Course(student, course, status.SUBMITTED));
         ArrayList<Course>cList = eService.findAvailableEnrolmentByStudent(student);
-        mav.addObject("clist", cList);
-        return mav;     
+        mav.addObject("courselist", cList);
+        return mav;
     }
 }
 	
