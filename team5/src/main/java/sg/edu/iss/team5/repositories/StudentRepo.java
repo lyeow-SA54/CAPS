@@ -12,6 +12,8 @@ public interface StudentRepo extends JpaRepository<Student, String>{
 
 	ArrayList<Student_Course> findAllBystudentID(Student student);
 	
+	Student findBystudentID(String studentID);
+	
 	@Query("SELECT s from Student s WHERE s.studentID = :sid AND (s.comment != null)AND (s.eventType ='APPROVED' OR s.eventType ='REJECTED')")
 	ArrayList<Student> findPendingCoursesBySID(String sid);
 }
