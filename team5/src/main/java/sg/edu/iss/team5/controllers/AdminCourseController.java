@@ -1,38 +1,28 @@
 package sg.edu.iss.team5.controllers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.team5.exception.CourseNotFound;
 import sg.edu.iss.team5.exception.EnrolmentNotFound;
-import sg.edu.iss.team5.helper.status;
 import sg.edu.iss.team5.model.Course;
 import sg.edu.iss.team5.model.Lecturer;
 import sg.edu.iss.team5.model.Student;
 import sg.edu.iss.team5.model.Student_Course;
+import sg.edu.iss.team5.repositories.StudentRepo;
 import sg.edu.iss.team5.services.CourseService;
+import sg.edu.iss.team5.services.EmailService;
 import sg.edu.iss.team5.services.EnrolmentService;
 import sg.edu.iss.team5.services.LecturerService;
 import sg.edu.iss.team5.services.StudentService;
@@ -49,7 +39,12 @@ public class AdminCourseController {
 	private EnrolmentService eService;
 	@Autowired
 	private StudentService sService;
-	@Autowired LecturerService lService;
+	@Autowired
+	LecturerService lService;
+	@Autowired
+	EmailService emailService;
+	@Autowired
+	StudentRepo sturepo;
 	
 	
 
@@ -167,10 +162,14 @@ public class AdminCourseController {
 
 		ModelAndView mav = new ModelAndView();
 //		String message = "New enrolment " + stu_c.getSc_ID() + " was successfully created.";
-//		System.out.println(message);
-//		System.out.println(std_id);
-//		System.out.println(course_id);
+		String sID = stu_c.getStudentID().getStudentID();
+		Student s = sturepo.findBystudentID(sID);
+		System.out.println(s);
+		System.out.println(s.getName());
+		System.out.println(stu_c.getCourseID().getName());
 		eService.createEnrolment(stu_c);
+		
+//		emailService.sendRegistrationEmail(stu_c.getStudentID().getEmail(), stu_c.getStudentID().getName(), stu_c.getCourseID().getName());
 		mav.setViewName("forward:/admin/courses/enroll/list");
 		return mav;
 	}
